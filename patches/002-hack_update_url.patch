@@ -1,0 +1,11 @@
+--- a/Shared/TSListControllerShared.m
++++ b/Shared/TSListControllerShared.m
+@@ -27,7 +27,7 @@
+ 
+ - (void)downloadTrollStoreAndRun:(void (^)(NSString* localTrollStoreTarPath))doHandler
+ {
+-	NSURL* trollStoreURL = [NSURL URLWithString:@"https://github.com/opa334/TrollStore/releases/latest/download/TrollStore.tar"];
++	NSURL* trollStoreURL = [NSURL URLWithString:@"https://github.com/sbwml/TrollStore_zh_Hans/releases/latest/download/TrollStore.tar"];
+ 	NSURLRequest* trollStoreRequest = [NSURLRequest requestWithURL:trollStoreURL];
+ 
+ 	NSURLSessionDownloadTask* downloadTask = [NSURLSession.sharedSession downloadTaskWithRequest:trollStoreRequest completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error)

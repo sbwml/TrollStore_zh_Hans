@@ -27,16 +27,20 @@ jobs:
         git clone https://github.com/opa334/TrollStore --recurse-submodules
         cd TrollStore
         git checkout $(git describe --tags --abbrev=0)
-        patch -p1 < ../patches/zh_Hans.patch
+        patch -p1 < ../patches/001-zh_Hans.patch
         if [ "$?" -ne 0 ]; then
-          echo "Apply patches failure ..."
+          echo "Apply 001-zh_Hans.patch failure ..."
           exit 1
-        else
-          echo WORKDIR="$(pwd)" >> "$GITHUB_ENV"
-          echo VERSION="$(git describe --tags --abbrev=0)" >> "$GITHUB_ENV"
-          # drop build ipa by default
-          sed -i '' 's/build_installer15 build_installer64e//g' Makefile
         fi
+        patch -p1 < ../patches/002-hack_update_url.patch
+        if [ "$?" -ne 0 ]; then
+          echo "Apply 002-hack_update_url.patch failure ..."
+          exit 1
+        fi
+        echo WORKDIR="$(pwd)" >> "$GITHUB_ENV"
+        echo VERSION="$(git describe --tags --abbrev=0)" >> "$GITHUB_ENV"
+        # drop build ipa by default
+        sed -i '' 's/build_installer15 build_installer64e//g' Makefile
 
     - name: Build TrollStore
       working-directory: ${{ env.WORKDIR }}
