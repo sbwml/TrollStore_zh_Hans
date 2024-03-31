@@ -138,7 +138,7 @@ index 9bad064..5fb3a3b 100644
 +		UIAlertController* infoAlert = [UIAlertController alertControllerWithTitle:title message:@"应用已切换到“系统”注册状态，并将在重新启动后再次启动。" preferredStyle:UIAlertControllerStyleAlert];
  
 -		UIAlertAction* respringAction = [UIAlertAction actionWithTitle:@"Respring" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
-+		UIAlertAction* respringAction = [UIAlertAction actionWithTitle:@"重新启动" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
++		UIAlertAction* respringAction = [UIAlertAction actionWithTitle:@"注销设备" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
  		{
  			respring();
  		}];
@@ -552,7 +552,7 @@ index b5090fa..11c1e88 100644
  					if(shouldExit)
  					{
 -						NSLog(@"Respring + Exit");
-+						NSLog(@"重新启动 + 退出");
++						NSLog(@"注销设备 + 退出");
  						respring();
  						exit(0);
  					}
@@ -704,11 +704,11 @@ index 61fb1e7..8d4d939 100644
 -		utilitiesGroupSpecifier.name = @"Utilities";
 -		[utilitiesGroupSpecifier setProperty:@"If an app does not immediately appear after installation, respring here and it should appear afterwards." forKey:@"footerText"];
 +		utilitiesGroupSpecifier.name = @"工具";
-+		[utilitiesGroupSpecifier setProperty:@"如果一个应用程序安装后不立即出现，请在这里重新启动，然后它应该出现。" forKey:@"footerText"];
++		[utilitiesGroupSpecifier setProperty:@"如果应用程序安装后不立即出现，请在这里注销设备或重建图标缓存。" forKey:@"footerText"];
  		[_specifiers addObject:utilitiesGroupSpecifier];
  
 -		PSSpecifier* respringButtonSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Respring"
-+		PSSpecifier* respringButtonSpecifier = [PSSpecifier preferenceSpecifierNamed:@"重新启动"
++		PSSpecifier* respringButtonSpecifier = [PSSpecifier preferenceSpecifierNamed:@"注销设备"
  											target:self
  											set:nil
  											get:nil
@@ -790,7 +790,7 @@ index 61fb1e7..8d4d939 100644
 -				[persistenceGroupSpecifier setProperty:[NSString stringWithFormat:@"When iOS rebuilds the icon cache, all TrollStore apps including TrollStore itself will be reverted to \"User\" state and either disappear or no longer launch. If that happens, you can use the persistence helper installed into %@ to refresh the app registrations, which will make them work again.", appName] forKey:@"footerText"];
 -				PSSpecifier* installedPersistenceHelperSpecifier = [PSSpecifier preferenceSpecifierNamed:[NSString stringWithFormat:@"Helper Installed into %@", appName]
 +				[persistenceGroupSpecifier setProperty:[NSString stringWithFormat:@"当 iOS 重建图标缓存时，所有 TrollStore 应用，包括 TrollStore 本身，都将恢复到“用户”状态，要么消失，要么不再启动。如果发生这种情况，您可以使用安装到 %@ 中的持久性助手来刷新所有 TrollStore 相关应用的注册，使它们再次正常工作。", appName] forKey:@"footerText"];
-+				PSSpecifier* installedPersistenceHelperSpecifier = [PSSpecifier preferenceSpecifierNamed:[NSString stringWithFormat:@"安装到 %@ 中的助手", appName]
++				PSSpecifier* installedPersistenceHelperSpecifier = [PSSpecifier preferenceSpecifierNamed:[NSString stringWithFormat:@"持久性助手已安装到 %@", appName]
  												target:self
  												set:nil
  												get:nil
@@ -845,7 +845,7 @@ index 61fb1e7..8d4d939 100644
  
  		PSSpecifier* otherGroupSpecifier = [PSSpecifier emptyGroupSpecifier];
 -		[otherGroupSpecifier setProperty:[NSString stringWithFormat:@"TrollStore %@\n\n© 2022-2024 Lars Fröder (opa334)\n\nTrollStore is NOT for piracy!\n\nCredits:\nGoogle TAG, @alfiecg_dev: CoreTrust bug\n@lunotech11, @SerenaKit, @tylinux, @TheRealClarity, @dhinakg, @khanhduytran0: Various contributions\n@ProcursusTeam: uicache, ldid\n@cstar_ow: uicache\n@saurik: ldid", [self getTrollStoreVersion]] forKey:@"footerText"];
-+		[otherGroupSpecifier setProperty:[NSString stringWithFormat:@"TrollStore %@\n\n© 2022-2024 Lars Fröder (opa334)\n\nTrollStore 不用于盗版！\n\n鸣谢:\nGoogle TAG, @alfiecg_dev: CoreTrust bug\n@lunotech11, @SerenaKit, @tylinux, @TheRealClarity, @dhinakg, @khanhduytran0: Various contributions\n@ProcursusTeam: uicache, ldid\n@cstar_ow: uicache\n@saurik: ldid", [self getTrollStoreVersion]] forKey:@"footerText"];
++		[otherGroupSpecifier setProperty:[NSString stringWithFormat:@"TrollStore %@\n\n© 2022-2024 Lars Fröder (opa334)\n\nTrollStore 拒绝盗版应用行为！\n\n鸣谢:\nGoogle TAG, @alfiecg_dev: CoreTrust bug\n@lunotech11, @SerenaKit, @tylinux, @TheRealClarity, @dhinakg, @khanhduytran0: Various contributions\n@ProcursusTeam: uicache, ldid\n@cstar_ow: uicache\n@saurik: ldid", [self getTrollStoreVersion]] forKey:@"footerText"];
  		[_specifiers addObject:otherGroupSpecifier];
  
 -		PSSpecifier* advancedLinkSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Advanced"
