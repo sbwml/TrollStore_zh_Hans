@@ -1,0 +1,111 @@
+diff --git a/TrollHelper/TSHRootViewController.m b/TrollHelper/TSHRootViewController.m
+index 800ce24..768044e 100644
+--- a/TrollHelper/TSHRootViewController.m
++++ b/TrollHelper/TSHRootViewController.m
+@@ -38,13 +38,13 @@
+ 		_specifiers = [NSMutableArray new];
+ 
+ 		#ifdef LEGACY_CT_BUG
+-		NSString* credits = @"Powered by Fugu15 CoreTrust & installd bugs, thanks to @LinusHenze\n\n© 2022-2024 Lars Fröder (opa334)";
++		NSString* credits = @"由 Fugu15 CoreTrust & installd 漏洞提供支持，感谢 @LinusHenze\n\n© 2022-2024 Lars Fröder (opa334)";
+ 		#else
+-		NSString* credits = @"Powered by CVE-2023-41991, originally discovered by Google TAG, rediscovered via patchdiffing by @alfiecg_dev\n\n© 2022-2024 Lars Fröder (opa334)";
++		NSString* credits = @"由 CVE-2023-41991 提供支持，该漏洞由 Google TAG 首次发现，由 @alfiecg_dev 通过补丁差异再次发现\n\n© 2022-2024 Lars Fröder (opa334)";
+ 		#endif
+ 
+ 		PSSpecifier* infoGroupSpecifier = [PSSpecifier emptyGroupSpecifier];
+-		infoGroupSpecifier.name = @"Info";
++		infoGroupSpecifier.name = @"信息";
+ 		[_specifiers addObject:infoGroupSpecifier];
+ 
+ 		PSSpecifier* infoSpecifier = [PSSpecifier preferenceSpecifierNamed:@"TrollStore"
+@@ -64,7 +64,7 @@
+ 		if(_newerVersion && isInstalled)
+ 		{
+ 			// Update TrollStore
+-			PSSpecifier* updateTrollStoreSpecifier = [PSSpecifier preferenceSpecifierNamed:[NSString stringWithFormat:@"Update TrollStore to %@", _newerVersion]
++			PSSpecifier* updateTrollStoreSpecifier = [PSSpecifier preferenceSpecifierNamed:[NSString stringWithFormat:@"更新 TrollStore 到 %@", _newerVersion]
+ 										target:self
+ 										set:nil
+ 										get:nil
+@@ -86,7 +86,7 @@
+ 
+ 		if(isInstalled || trollStoreInstalledAppContainerPaths().count)
+ 		{
+-			PSSpecifier* refreshAppRegistrationsSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Refresh App Registrations"
++			PSSpecifier* refreshAppRegistrationsSpecifier = [PSSpecifier preferenceSpecifierNamed:@"刷新应用程序注册"
+ 												target:self
+ 												set:nil
+ 												get:nil
+@@ -100,7 +100,7 @@
+ 		}
+ 		if(isInstalled)
+ 		{
+-			PSSpecifier* uninstallTrollStoreSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Uninstall TrollStore"
++			PSSpecifier* uninstallTrollStoreSpecifier = [PSSpecifier preferenceSpecifierNamed:@"卸载 TrollStore"
+ 										target:self
+ 										set:nil
+ 										get:nil
+@@ -115,7 +115,7 @@
+ 		}
+ 		else
+ 		{
+-			PSSpecifier* installTrollStoreSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Install TrollStore"
++			PSSpecifier* installTrollStoreSpecifier = [PSSpecifier preferenceSpecifierNamed:@"安装 TrollStore"
+ 												target:self
+ 												set:nil
+ 												get:nil
+@@ -135,7 +135,7 @@
+ 			[_specifiers addObject:uninstallHelperGroupSpecifier];
+ 			lastGroupSpecifier = uninstallHelperGroupSpecifier;
+ 
+-			PSSpecifier* uninstallPersistenceHelperSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Uninstall Persistence Helper"
++			PSSpecifier* uninstallPersistenceHelperSpecifier = [PSSpecifier preferenceSpecifierNamed:@"卸载持久性助手"
+ 												target:self
+ 												set:nil
+ 												get:nil
+@@ -163,8 +163,8 @@
+ 
+ 			if(isRegistered)
+ 			{
+-				bottomText = @"This app is registered as the TrollStore persistence helper and can be used to fix TrollStore app registrations in case they revert back to \"User\" state and the apps say they're unavailable.";
+-				registerUnregisterSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Unregister Persistence Helper"
++				bottomText = @"此应用程序已注册为 TrollStore 持久性助手，可用于修复 TrollStore 应用程序注册，以防它们回到“用户”状态并且应用程序显示它们不可用。";
++				registerUnregisterSpecifier = [PSSpecifier preferenceSpecifierNamed:@"取消注册持久性助手"
+ 												target:self
+ 												set:nil
+ 												get:nil
+@@ -178,8 +178,8 @@
+ 			}
+ 			else if(!persistenceHelperProxy)
+ 			{
+-				bottomText = @"If you want to use this app as the TrollStore persistence helper, you can register it here.";
+-				registerUnregisterSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Register Persistence Helper"
++				bottomText = @"如果您想将此应用程序用作 TrollStore 持久性助手，则可以在此处注册它。";
++				registerUnregisterSpecifier = [PSSpecifier preferenceSpecifierNamed:@"注册持久性助手"
+ 												target:self
+ 												set:nil
+ 												get:nil
+@@ -205,7 +205,7 @@
+ 		}
+ 	}
+ 	
+-	[(UINavigationItem *)self.navigationItem setTitle:@"TrollStore Helper"];
++	[(UINavigationItem *)self.navigationItem setTitle:@"TrollStore 助手"];
+ 	return _specifiers;
+ }
+ 
+@@ -214,11 +214,11 @@
+ 	NSString* version = [self getTrollStoreVersion];
+ 	if(!version)
+ 	{
+-		return @"Not Installed";
++		return @"未安装";
+ 	}
+ 	else
+ 	{
+-		return [NSString stringWithFormat:@"Installed, %@", version];
++		return [NSString stringWithFormat:@"已安装，%@", version];
+ 	}
+ }
+ 

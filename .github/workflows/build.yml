@@ -22,21 +22,28 @@ jobs:
       run: |
         brew install libarchive
 
-    - name: TrollStore - Patch zh_Hans
+    - name: Patch TrollStore
       run: |
         git clone https://github.com/opa334/TrollStore --recurse-submodules
         cd TrollStore
         git checkout $(git describe --tags --abbrev=0)
-        patch -p1 < ../patches/001-zh_Hans.patch
+
+        # Apply patches
+        patch -p1 < ../patches/001-Shared.patch
         if [ "$?" -ne 0 ]; then
-          echo "Apply 001-zh_Hans.patch failure ..."
+          echo "Error applying Shared patch ..."
           exit 1
         fi
-        patch -p1 < ../patches/002-hack_update_url.patch
+        patch -p1 < ../patches/002-TrollHelper.patch
         if [ "$?" -ne 0 ]; then
-          echo "Apply 002-hack_update_url.patch failure ..."
+          echo "Error applying TrollHelper patch ..."
+        fi
+        patch -p1 < ../patches/003-TrollStore.patch
+        if [ "$?" -ne 0 ]; then
+          echo "Error applying TrollStore patch ..."
           exit 1
         fi
+
         echo WORKDIR="$(pwd)" >> "$GITHUB_ENV"
         echo VERSION="$(git describe --tags --abbrev=0)" >> "$GITHUB_ENV"
         # drop build ipa by default

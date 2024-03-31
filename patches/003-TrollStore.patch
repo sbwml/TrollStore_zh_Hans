@@ -1,125 +1,3 @@
-From f44a80fcae120ca944be01f5801f1acab0dff93c Mon Sep 17 00:00:00 2001
-From: sbwml <admin@cooluc.com>
-Date: Sun, 31 Mar 2024 12:44:11 +0800
-Subject: [PATCH] zh_Hans
-
-Signed-off-by: sbwml <admin@cooluc.com>
----
- Shared/TSListControllerShared.m               | 30 +++---
- TrollStore/TSAppTableViewController.m         | 64 ++++++-------
- TrollStore/TSApplicationsManager.m            | 46 +++++-----
- TrollStore/TSDonateListController.m           | 10 +-
- TrollStore/TSInstallationController.m         | 44 ++++-----
- TrollStore/TSRootViewController.m             |  6 +-
- TrollStore/TSSceneDelegate.m                  | 14 +--
- TrollStore/TSSettingsAdvancedListController.m | 22 ++---
- TrollStore/TSSettingsListController.m         | 92 ++++++++++---------
- 9 files changed, 166 insertions(+), 162 deletions(-)
-
-diff --git a/Shared/TSListControllerShared.m b/Shared/TSListControllerShared.m
-index de5a754..86059c0 100644
---- a/Shared/TSListControllerShared.m
-+++ b/Shared/TSListControllerShared.m
-@@ -34,8 +34,8 @@
- 	{
- 		if(error)
- 		{
--			UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:@"Error" message:[NSString stringWithFormat:@"Error downloading TrollStore: %@", error] preferredStyle:UIAlertControllerStyleAlert];
--			UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleDefault handler:nil];
-+			UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:@"错误" message:[NSString stringWithFormat:@"下载 TrollStore 出错：%@", error] preferredStyle:UIAlertControllerStyleAlert];
-+			UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"关闭" style:UIAlertActionStyleDefault handler:nil];
- 			[errorAlert addAction:closeAction];
- 
- 			dispatch_async(dispatch_get_main_queue(), ^
-@@ -63,11 +63,11 @@
- {
- 	if(update)
- 	{
--		[TSPresentationDelegate startActivity:@"Updating TrollStore"];
-+		[TSPresentationDelegate startActivity:@"正在更新 TrollStore"];
- 	}
- 	else
- 	{
--		[TSPresentationDelegate startActivity:@"Installing TrollStore"];
-+		[TSPresentationDelegate startActivity:@"正在安装 TrollStore"];
- 	}
- 
- 	[self downloadTrollStoreAndRun:^(NSString* tmpTarPath)
-@@ -100,8 +100,8 @@
- 			{
- 				[TSPresentationDelegate stopActivityWithCompletion:^
- 				{
--					UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:@"Error" message:[NSString stringWithFormat:@"Error installing TrollStore: trollstorehelper returned %d", ret] preferredStyle:UIAlertControllerStyleAlert];
--					UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleDefault handler:nil];
-+					UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:@"错误" message:[NSString stringWithFormat:@"安装 TrollStore 出错：trollstorehelper 返回了 %d", ret] preferredStyle:UIAlertControllerStyleAlert];
-+					UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"关闭" style:UIAlertActionStyleDefault handler:nil];
- 					[errorAlert addAction:closeAction];
- 					[TSPresentationDelegate presentViewController:errorAlert animated:YES completion:nil];
- 				}];
-@@ -122,7 +122,7 @@
- 
- - (void)rebuildIconCachePressed
- {
--	[TSPresentationDelegate startActivity:@"Rebuilding Icon Cache"];
-+	[TSPresentationDelegate startActivity:@"重建图标缓存"];
- 
- 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
- 	{
-@@ -137,7 +137,7 @@
- 
- - (void)refreshAppRegistrationsPressed
- {
--	[TSPresentationDelegate startActivity:@"Refreshing"];
-+	[TSPresentationDelegate startActivity:@"刷新"];
- 
- 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
- 	{
-@@ -160,12 +160,12 @@
- 	}
- 	else
- 	{
--		UIAlertController* uninstallWarningAlert = [UIAlertController alertControllerWithTitle:@"Warning" message:@"Uninstalling the persistence helper will revert this app back to it's original state, you will however no longer be able to persistently refresh the TrollStore app registrations. Continue?" preferredStyle:UIAlertControllerStyleAlert];
-+		UIAlertController* uninstallWarningAlert = [UIAlertController alertControllerWithTitle:@"警告" message:@"卸载持久性助手将将应用程序还原到其原始状态，但您将不再能够持久地刷新 TrollStore 应用程序注册。是否继续？" preferredStyle:UIAlertControllerStyleAlert];
- 	
--		UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-+		UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
- 		[uninstallWarningAlert addAction:cancelAction];
- 
--		UIAlertAction* continueAction = [UIAlertAction actionWithTitle:@"Continue" style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action)
-+		UIAlertAction* continueAction = [UIAlertAction actionWithTitle:@"继续" style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action)
- 		{
- 			spawnRoot(rootHelperPath(), @[@"uninstall-persistence-helper"], nil, nil);
- 			exit(0);
-@@ -195,9 +195,9 @@
- 
- - (void)uninstallTrollStorePressed
- {
--	UIAlertController* uninstallAlert = [UIAlertController alertControllerWithTitle:@"Uninstall" message:@"You are about to uninstall TrollStore, do you want to preserve the apps installed by it?" preferredStyle:UIAlertControllerStyleAlert];
-+	UIAlertController* uninstallAlert = [UIAlertController alertControllerWithTitle:@"卸载" message:@"您将要卸载 TrollStore，是否要保留由其安装的应用程序？" preferredStyle:UIAlertControllerStyleAlert];
- 	
--	UIAlertAction* uninstallAllAction = [UIAlertAction actionWithTitle:@"Uninstall TrollStore, Uninstall Apps" style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action)
-+	UIAlertAction* uninstallAllAction = [UIAlertAction actionWithTitle:@"卸载 TrollStore，卸载应用程序" style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action)
- 	{
- 		NSMutableArray* args = [self argsForUninstallingTrollStore];
- 		spawnRoot(rootHelperPath(), args, nil, nil);
-@@ -205,7 +205,7 @@
- 	}];
- 	[uninstallAlert addAction:uninstallAllAction];
- 
--	UIAlertAction* preserveAppsAction = [UIAlertAction actionWithTitle:@"Uninstall TrollStore, Preserve Apps" style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action)
-+	UIAlertAction* preserveAppsAction = [UIAlertAction actionWithTitle:@"卸载 TrollStore，保留应用程序" style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action)
- 	{
- 		NSMutableArray* args = [self argsForUninstallingTrollStore];
- 		[args addObject:@"preserve-apps"];
-@@ -214,7 +214,7 @@
- 	}];
- 	[uninstallAlert addAction:preserveAppsAction];
- 
--	UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-+	UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
- 	[uninstallAlert addAction:cancelAction];
- 
- 	[TSPresentationDelegate presentViewController:uninstallAlert animated:YES completion:nil];
 diff --git a/TrollStore/TSAppTableViewController.m b/TrollStore/TSAppTableViewController.m
 index 9bad064..8d4796b 100644
 --- a/TrollStore/TSAppTableViewController.m
@@ -698,7 +576,7 @@ index b5090fa..1f3fcc2 100644
  			[TSPresentationDelegate presentViewController:errorAlert animated:YES completion:nil];
  		}
 diff --git a/TrollStore/TSSettingsAdvancedListController.m b/TrollStore/TSSettingsAdvancedListController.m
-index 8bdc1b9..297a256 100644
+index 8bdc1b9..ddb88cc 100644
 --- a/TrollStore/TSSettingsAdvancedListController.m
 +++ b/TrollStore/TSSettingsAdvancedListController.m
 @@ -15,11 +15,11 @@ extern NSUserDefaults* trollStoreUserDefaults();
@@ -708,7 +586,7 @@ index 8bdc1b9..297a256 100644
 -		//installationMethodGroupSpecifier.name = @"Installation";
 -		[installationMethodGroupSpecifier setProperty:@"installd:\nInstalls applications by doing a placeholder installation through installd, fixing the permissions and then adding it to icon cache.\nAdvantage: Might be slightly more persistent than the custom method in terms of icon cache reloads.\nDisadvantage: Causes some small issues with certain applications for seemingly no reason (E.g. Watusi cannot save preferences when being installed using this method).\n\nCustom (Recommended):\nInstalls applications by manually creating a bundle using MobileContainerManager, copying the app into it and adding it to icon cache.\nAdvantage: No known issues (As opposed to the Watusi issue outlined in the installd method).\nDisadvantage: Might be slightly less persistent then the installd method in terms of icon cache reloads.\n\nNOTE: In cases where installd is selected but the placeholder installation fails, TrollStore automatically falls back to using the Custom method." forKey:@"footerText"];
 +		//installationMethodGroupSpecifier.name = @"安装方式";
-+		[installationMethodGroupSpecifier setProperty:@"installd:\n通过在 installd 中执行占位符安装、修复权限，然后将其添加到图标缓存中来安装应用程序。\n优点：在图标缓存重新加载方面可能比自定义方法稍微持久一些。\n缺点：出现某些应用程序的一些小问题，似乎没有原因（例如，使用此方法安装的 Watusi 无法保存偏好设置）。\n\n自定义（推荐）:\n通过手动创建一个 MobileContainerManager 包并将应用程序复制到其中，然后将其添加到图标缓存中来安装应用程序。\n优点：没有已知问题（相对于 installd 方法中概述的 Watusi 问题）。\n缺点：在图标缓存重新加载方面可能比 installd 方法稍微不持久。\n\n注意：在选择 installd 但占位符安装失败的情况下，TrollStore 会自动回退到使用自定义方法。" forKey:@"footerText"];
++		[installationMethodGroupSpecifier setProperty:@"Installd：\n通过在 installd 中执行占位符安装、修复权限，然后将其添加到图标缓存中来安装应用程序。\n优点：在图标缓存重新加载方面可能比自定义方式稍微持久一些。\n缺点：出现某些应用程序的一些小问题，似乎没有原因（例如，使用此方式安装的 Watusi 无法保存偏好设置）。\n\n自定义（推荐）:\n通过手动创建一个 MobileContainerManager 包并将应用程序复制到其中，然后将其添加到图标缓存中来安装应用程序。\n优点：没有已知问题（相对于 Installd 方式中概述的 Watusi 问题）。\n缺点：在图标缓存重新加载方面可能比 Installd 方式稍微不持久。\n\n注意：在选择 Installd 但占位符安装失败的情况下，TrollStore 会自动回退到使用自定义方式。" forKey:@"footerText"];
  		[_specifiers addObject:installationMethodGroupSpecifier];
  
 -		PSSpecifier* installationMethodSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Installation Method"
@@ -730,7 +608,7 @@ index 8bdc1b9..297a256 100644
  		[installationMethodSegmentSpecifier setProperty:@"installationMethod" forKey:@"key"];
  		installationMethodSegmentSpecifier.values = @[@0, @1];
 -		installationMethodSegmentSpecifier.titleDictionary = @{@0 : @"installd", @1 : @"Custom"};
-+		installationMethodSegmentSpecifier.titleDictionary = @{@0 : @"installd", @1 : @"自定义"};
++		installationMethodSegmentSpecifier.titleDictionary = @{@0 : @"Installd", @1 : @"自定义"};
  		[installationMethodSegmentSpecifier setProperty:@1 forKey:@"default"];
  		[_specifiers addObject:installationMethodSegmentSpecifier];
  
@@ -738,7 +616,7 @@ index 8bdc1b9..297a256 100644
 -		//uninstallationMethodGroupSpecifier.name = @"Uninstallation";
 -		[uninstallationMethodGroupSpecifier setProperty:@"installd (Recommended):\nUninstalls applications using the same API that SpringBoard uses when uninstalling them from the home screen.\n\nCustom:\nUninstalls applications by removing them from icon cache and then deleting their application and data bundles directly.\n\nNOTE: In cases where installd is selected but the stock uninstallation fails, TrollStore automatically falls back to using the Custom method." forKey:@"footerText"];
 +		//uninstallationMethodGroupSpecifier.name = @"卸载方式";
-+		[uninstallationMethodGroupSpecifier setProperty:@"installd（推荐）:\n使用与 SpringBoard 在从主屏幕卸载应用程序时使用的相同 API 来卸载应用程序。\n\n自定义:\n通过从图标缓存中删除它们，然后直接删除其应用程序和数据包束来卸载应用程序。\n\n注意：在选择 installd 但标准卸载失败的情况下，TrollStore 会自动回退到使用自定义方法。" forKey:@"footerText"];
++		[uninstallationMethodGroupSpecifier setProperty:@"Installd（推荐）:\n使用与 SpringBoard 在从主屏幕卸载应用程序时使用的相同 API 来卸载应用程序。\n\n自定义:\n通过从图标缓存中删除它们，然后直接删除其应用程序和数据包束来卸载应用程序。\n\n注意：在选择 Installd 但标准卸载失败的情况下，TrollStore 会自动回退到使用自定义方式。" forKey:@"footerText"];
  		[_specifiers addObject:uninstallationMethodGroupSpecifier];
  
 -		PSSpecifier* uninstallationMethodSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Uninstallation Method"
@@ -760,7 +638,7 @@ index 8bdc1b9..297a256 100644
  		[uninstallationMethodSegmentSpecifier setProperty:@"uninstallationMethod" forKey:@"key"];
  		uninstallationMethodSegmentSpecifier.values = @[@0, @1];
 -		uninstallationMethodSegmentSpecifier.titleDictionary = @{@0 : @"installd", @1 : @"Custom"};
-+		uninstallationMethodSegmentSpecifier.titleDictionary = @{@0 : @"installd", @1 : @"自定义"};
++		uninstallationMethodSegmentSpecifier.titleDictionary = @{@0 : @"Installd", @1 : @"自定义"};
  		[uninstallationMethodSegmentSpecifier setProperty:@0 forKey:@"default"];
  		[_specifiers addObject:uninstallationMethodSegmentSpecifier];
  	}
@@ -771,7 +649,7 @@ index 8bdc1b9..297a256 100644
  }
  
 diff --git a/TrollStore/TSSettingsListController.m b/TrollStore/TSSettingsListController.m
-index 61fb1e7..2c6bcbf 100644
+index 61fb1e7..4d31e0a 100644
 --- a/TrollStore/TSSettingsListController.m
 +++ b/TrollStore/TSSettingsListController.m
 @@ -76,10 +76,10 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
@@ -813,7 +691,7 @@ index 61fb1e7..2c6bcbf 100644
  		[_specifiers addObject:utilitiesGroupSpecifier];
  
 -		PSSpecifier* respringButtonSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Respring"
-+		PSSpecifier* respringButtonSpecifier = [PSSpecifier preferenceSpecifierNamed:@"注销设备"
++		PSSpecifier* respringButtonSpecifier = [PSSpecifier preferenceSpecifierNamed:@"注销"
  											target:self
  											set:nil
  											get:nil
@@ -1067,6 +945,3 @@ index 61fb1e7..2c6bcbf 100644
  	[rebuildNoticeAlert addAction:rebuildLaterAction];
  
  	[TSPresentationDelegate presentViewController:rebuildNoticeAlert animated:YES completion:nil];
--- 
-2.42.0
-
