@@ -1,0 +1,55 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [build]
+
+jobs:
+  build:
+    if: github.event.repository.owner.id == github.event.sender.id
+    name: Build with Theos
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Install Theos
+      uses: Randomblock1/theos-action@v1
+
+    - name: Install libarchive
+      run: |
+        brew install libarchive
+
+    - name: TrollStore - Patch zh_Hans
+      run: |
+        git clone https://github.com/opa334/TrollStore --recurse-submodules
+        cd TrollStore
+        git checkout $(git describe --tags --abbrev=0)
+        patch -p1 < ../patches/zh_Hans.patch
+        if [ "$?" -ne 0 ]; then
+          echo "Apply patches failure ..."
+          exit 1
+        else
+          echo WORKDIR="$(pwd)" >> "$GITHUB_ENV"
+          echo VERSION="$(git describe --tags --abbrev=0)" >> "$GITHUB_ENV"
+          # drop build ipa by default
+          sed -i '' 's/build_installer15 build_installer64e//g' Makefile
+        fi
+
+    - name: Build TrollStore
+      working-directory: ${{ env.WORKDIR }}
+      run: |
+        make
+
+    - name: Create release
+      uses: sbwml/release-action@main
+      with:
+        name: TrollStore-${{ env.VERSION }}
+        allowUpdates: true
+        tag: ${{ env.VERSION }}
+        commit: main
+        replacesArtifacts: true
+        token: ${{ secrets.GITHUB_TOKEN }}
+        artifacts: ${{ env.WORKDIR }}/_build/TrollStore.tar
