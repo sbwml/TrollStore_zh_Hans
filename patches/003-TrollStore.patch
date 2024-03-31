@@ -1,5 +1,67 @@
+diff --git a/TrollStore/TSAppDelegate.m b/TrollStore/TSAppDelegate.m
+index 8cec989..197ad6e 100644
+--- a/TrollStore/TSAppDelegate.m
++++ b/TrollStore/TSAppDelegate.m
+@@ -10,7 +10,7 @@
+ - (UISceneConfiguration *)application:(UIApplication *)application configurationForConnectingSceneSession:(UISceneSession *)connectingSceneSession options:(UISceneConnectionOptions *)options {
+     // Called when a new scene session is being created.
+     // Use this method to select a configuration to create the new scene with.
+-    return [[UISceneConfiguration alloc] initWithName:@"Default Configuration" sessionRole:connectingSceneSession.role];
++    return [[UISceneConfiguration alloc] initWithName:NSLocalizedString(@"Default Configuration", nil) sessionRole:connectingSceneSession.role];
+ }
+ 
+ 
+diff --git a/TrollStore/TSAppInfo.m b/TrollStore/TSAppInfo.m
+index 2046269..b956997 100644
+--- a/TrollStore/TSAppInfo.m
++++ b/TrollStore/TSAppInfo.m
+@@ -99,7 +99,7 @@ extern UIImage* imageWithSize(UIImage* image, CGSize size);
+ 
+ 			if(!_cachedAppBundleName)
+ 			{
+-				NSString* errorDescription = @"Unable to locate app bundle inside the .IPA archive.";
++				NSString* errorDescription = NSLocalizedString(@"Unable to locate app bundle inside the .IPA archive.", nil);
+ 				outError = [NSError errorWithDomain:TrollStoreErrorDomain code:301 userInfo:@{NSLocalizedDescriptionKey : errorDescription}];
+ 			}
+ 		}
+@@ -181,7 +181,7 @@ extern UIImage* imageWithSize(UIImage* image, CGSize size);
+ 
+ 	if(!_cachedInfoDictionary)
+ 	{
+-		NSString* errorDescription = @"Unable to locate Info.plist inside app bundle.";
++		NSString* errorDescription = NSLocalizedString(@"Unable to locate Info.plist inside app bundle.", nil);
+ 		return [NSError errorWithDomain:TrollStoreErrorDomain code:302 userInfo:@{NSLocalizedDescriptionKey : errorDescription}];
+ 	}
+ 	
+@@ -220,7 +220,7 @@ extern UIImage* imageWithSize(UIImage* image, CGSize size);
+ 				struct archive_entry* mainBinaryEntry = [self archiveEntryForSubpath:bundleExecutableSubpath];
+ 				if(!mainBinaryEntry)
+ 				{
+-					NSString* errorDescription = @"Unable to locate main binary inside app bundle.";
++					NSString* errorDescription = NSLocalizedString(@"Unable to locate main binary inside app bundle.", nil);
+ 					return [NSError errorWithDomain:TrollStoreErrorDomain code:303 userInfo:@{NSLocalizedDescriptionKey : errorDescription}];
+ 				}
+ 				
+@@ -263,7 +263,7 @@ extern UIImage* imageWithSize(UIImage* image, CGSize size);
+ 
+ 				if(![[NSFileManager defaultManager] fileExistsAtPath:bundleExecutablePath])
+ 				{
+-					NSString* errorDescription = @"Unable to locate main binary inside app bundle.";
++					NSString* errorDescription = NSLocalizedString(@"Unable to locate main binary inside app bundle.", nil);
+ 					return [NSError errorWithDomain:TrollStoreErrorDomain code:303 userInfo:@{NSLocalizedDescriptionKey : errorDescription}];
+ 				}
+ 
+@@ -1063,7 +1063,7 @@ extern UIImage* imageWithSize(UIImage* image, CGSize size);
+ 		NSForegroundColorAttributeName : dangerColor
+ 	};
+ 
+-	[description appendAttributedString:[[NSAttributedString alloc] initWithString:@"Metadata" attributes:headerAttributes]];
++	[description appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"Metadata", nil) attributes:headerAttributes]];
+ 	
+ 	[description appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\nBundle Identifier: %@", bundleId] attributes:bodyAttributes]];
+ 	[description appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\nVersion: %@", version] attributes:bodyAttributes]];
 diff --git a/TrollStore/TSAppTableViewController.m b/TrollStore/TSAppTableViewController.m
-index 9bad064..78078c5 100644
+index 9bad064..938c030 100644
 --- a/TrollStore/TSAppTableViewController.m
 +++ b/TrollStore/TSAppTableViewController.m
 @@ -117,7 +117,7 @@ UIImage* imageWithSize(UIImage* image, CGSize size)
@@ -7,7 +69,7 @@ index 9bad064..78078c5 100644
  - (void)_setUpNavigationBar
  {
 -	UIAction* installFromFileAction = [UIAction actionWithTitle:@"Install IPA File" image:[UIImage systemImageNamed:@"doc.badge.plus"] identifier:@"InstallIPAFile" handler:^(__kindof UIAction *action)
-+	UIAction* installFromFileAction = [UIAction actionWithTitle:@"从 IPA 文件安装" image:[UIImage systemImageNamed:@"doc.badge.plus"] identifier:@"InstallIPAFile" handler:^(__kindof UIAction *action)
++	UIAction* installFromFileAction = [UIAction actionWithTitle:NSLocalizedString(@"Install IPA File", nil) image:[UIImage systemImageNamed:@"doc.badge.plus"] identifier:@"InstallIPAFile" handler:^(__kindof UIAction *action)
  	{
  		dispatch_async(dispatch_get_main_queue(), ^
  		{
@@ -16,19 +78,19 @@ index 9bad064..78078c5 100644
  	}];
  
 -	UIAction* installFromURLAction = [UIAction actionWithTitle:@"Install from URL" image:[UIImage systemImageNamed:@"link.badge.plus"] identifier:@"InstallFromURL" handler:^(__kindof UIAction *action)
-+	UIAction* installFromURLAction = [UIAction actionWithTitle:@"从 URL 安装" image:[UIImage systemImageNamed:@"link.badge.plus"] identifier:@"InstallFromURL" handler:^(__kindof UIAction *action)
++	UIAction* installFromURLAction = [UIAction actionWithTitle:NSLocalizedString(@"Install from URL", nil) image:[UIImage systemImageNamed:@"link.badge.plus"] identifier:@"InstallFromURL" handler:^(__kindof UIAction *action)
  	{
  		dispatch_async(dispatch_get_main_queue(), ^
  		{
 -			UIAlertController* installURLController = [UIAlertController alertControllerWithTitle:@"Install from URL" message:@"" preferredStyle:UIAlertControllerStyleAlert];
-+			UIAlertController* installURLController = [UIAlertController alertControllerWithTitle:@"从 URL 安装" message:@"" preferredStyle:UIAlertControllerStyleAlert];
++			UIAlertController* installURLController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Install from URL", nil) message:@"" preferredStyle:UIAlertControllerStyleAlert];
  
  			[installURLController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
  				textField.placeholder = @"URL";
  			}];
  
 -			UIAlertAction* installAction = [UIAlertAction actionWithTitle:@"Install" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
-+			UIAlertAction* installAction = [UIAlertAction actionWithTitle:@"安装" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
++			UIAlertAction* installAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Install", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
  			{
  				NSString* URLString = installURLController.textFields.firstObject.text;
  				NSURL* remoteURL = [NSURL URLWithString:URLString];
@@ -37,7 +99,7 @@ index 9bad064..78078c5 100644
  			[installURLController addAction:installAction];
  
 -			UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-+			UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
++			UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil];
  			[installURLController addAction:cancelAction];
  
  			[TSPresentationDelegate presentViewController:installURLController animated:YES completion:nil];
@@ -46,14 +108,14 @@ index 9bad064..78078c5 100644
  		if([[appInfo registrationState] isEqualToString:@"User"])
  		{
 -			failMessage = @"This app was not able to launch because it has a \"User\" registration state, register it as \"System\" and try again.";
-+			failMessage = @"无法打开此应用，因为其注册状态为 \"User\"，请将其注册为 \"System\" 后重试。";
++			failMessage = NSLocalizedString(@"This app was not able to launch because it has a \"User\" registration state, register it as \"System\" and try again.", nil);
  		}
  
 -		NSString* failTitle = [NSString stringWithFormat:@"Failed to open %@", appId];
-+		NSString* failTitle = [NSString stringWithFormat:@"无法打开 %@", appId];
++		NSString* failTitle = [NSString stringWithFormat:NSLocalizedString(@"Failed to open %@", nil), appId];
  		UIAlertController* didFailController = [UIAlertController alertControllerWithTitle:failTitle message:failMessage preferredStyle:UIAlertControllerStyleAlert];
 -		UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-+		UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
++		UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil];
  
  		[didFailController addAction:cancelAction];
  		[TSPresentationDelegate presentViewController:didFailController animated:YES completion:nil];
@@ -63,8 +125,8 @@ index 9bad064..78078c5 100644
  		{
 -			UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:@"Error" message:[NSString stringWithFormat:@"Error enabling JIT: trollstorehelper returned %d", ret] preferredStyle:UIAlertControllerStyleAlert];
 -			UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleDefault handler:nil];
-+			UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:@"错误" message:[NSString stringWithFormat:@"启用 JIT 时出错： trollstorehelper 返回 %d", ret] preferredStyle:UIAlertControllerStyleAlert];
-+			UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"关闭" style:UIAlertActionStyleDefault handler:nil];
++			UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil) message:[NSString stringWithFormat:NSLocalizedString(@"Error enabling JIT: trollstorehelper returned %d", nil), ret] preferredStyle:UIAlertControllerStyleAlert];
++			UIAlertAction* closeAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", nil) style:UIAlertActionStyleDefault handler:nil];
  			[errorAlert addAction:closeAction];
  			[TSPresentationDelegate presentViewController:errorAlert animated:YES completion:nil];
  		}
@@ -73,7 +135,7 @@ index 9bad064..78078c5 100644
  				detailsAlert.attributedMessage = [appInfo detailedInfoDescription];
  
 -				UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleDefault handler:nil];
-+				UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"关闭" style:UIAlertActionStyleDefault handler:nil];
++				UIAlertAction* closeAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", nil) style:UIAlertActionStyleDefault handler:nil];
  				[detailsAlert addAction:closeAction];
  
  				[TSPresentationDelegate presentViewController:detailsAlert animated:YES completion:nil];
@@ -82,8 +144,8 @@ index 9bad064..78078c5 100644
  			{
 -				UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Parse Error %ld", error.code] message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
 -				UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleDefault handler:nil];
-+				UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"解析错误 %ld", error.code] message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
-+				UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"关闭" style:UIAlertActionStyleDefault handler:nil];
++				UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Parse Error %ld", nil), error.code] message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
++				UIAlertAction* closeAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", nil) style:UIAlertActionStyleDefault handler:nil];
  				[errorAlert addAction:closeAction];
  
  				[TSPresentationDelegate presentViewController:errorAlert animated:YES completion:nil];
@@ -93,11 +155,11 @@ index 9bad064..78078c5 100644
  	{
 -		NSString* title = [NSString stringWithFormat:@"Switching '%@' to \"User\" Registration", [appInfo displayName]];
 -		UIAlertController* confirmationAlert = [UIAlertController alertControllerWithTitle:title message:@"Switching this app to a \"User\" registration will make it unlaunchable after the next respring because the bugs exploited in TrollStore only affect apps registered as \"System\".\nThe purpose of this option is to make the app temporarily show up in settings, so you can adjust the settings and then switch it back to a \"System\" registration (TrollStore installed apps do not show up in settings otherwise). Additionally, the \"User\" registration state is also useful to temporarily fix iTunes file sharing, which also doesn't work for TrollStore installed apps otherwise.\nWhen you're done making the changes you need and want the app to become launchable again, you will need to switch it back to \"System\" state in TrollStore." preferredStyle:UIAlertControllerStyleAlert];
-+		NSString* title = [NSString stringWithFormat:@"将 '%@' 切换到 \"User\" 注册", [appInfo displayName]];
-+		UIAlertController* confirmationAlert = [UIAlertController alertControllerWithTitle:title message:@"将此应用切换到 \"User\" 注册状态后，下次重新启动后将无法启动。这是因为 TrollStore 中利用的漏洞只影响 \"System\" 注册的应用。\n此选项的目的是使应用暂时显示在设置中，以便您可以调整设置，然后再将其切换回 \"System\" 注册（TrollStore 安装的应用在设置中不显示）。此外，\"User\" 注册状态还可用于临时修复 iTunes 文件共享，否则无法为 TrollStore 安装的应用工作。\n在完成所需更改并希望应用再次启动时，您需要在 TrollStore 中将其切换回 \"System\" 状态。" preferredStyle:UIAlertControllerStyleAlert];
++		NSString* title = [NSString stringWithFormat:NSLocalizedString(@"Switching '%@' to \"User\" Registration", nil), [appInfo displayName]];
++		UIAlertController* confirmationAlert = [UIAlertController alertControllerWithTitle:title message:NSLocalizedString(@"Switching this app to a \"User\" registration will make it unlaunchable after the next respring because the bugs exploited in TrollStore only affect apps registered as \"System\".\nThe purpose of this option is to make the app temporarily show up in settings, so you can adjust the settings and then switch it back to a \"System\" registration (TrollStore installed apps do not show up in settings otherwise). Additionally, the \"User\" registration state is also useful to temporarily fix iTunes file sharing, which also doesn't work for TrollStore installed apps otherwise.\nWhen you're done making the changes you need and want the app to become launchable again, you will need to switch it back to \"System\" state in TrollStore.", nil) preferredStyle:UIAlertControllerStyleAlert];
  
 -		UIAlertAction* switchToUserAction = [UIAlertAction actionWithTitle:@"Switch to \"User\"" style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action)
-+		UIAlertAction* switchToUserAction = [UIAlertAction actionWithTitle:@"切换到 \"User\"" style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action)
++		UIAlertAction* switchToUserAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Switch to \"User\"", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action)
  		{
  			[[TSApplicationsManager sharedInstance] changeAppRegistration:[appInfo bundlePath] toState:newState];
  			[appInfo sync_loadBasicInfo];
@@ -106,7 +168,7 @@ index 9bad064..78078c5 100644
  		[confirmationAlert addAction:switchToUserAction];
  
 -		UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-+		UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
++		UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil];
  
  		[confirmationAlert addAction:cancelAction];
  
@@ -115,13 +177,13 @@ index 9bad064..78078c5 100644
  		[appInfo sync_loadBasicInfo];
  
 -		NSString* title = [NSString stringWithFormat:@"Switched '%@' to \"System\" Registration", [appInfo displayName]];
-+		NSString* title = [NSString stringWithFormat:@"将 '%@' 切换到 \"System\" 注册", [appInfo displayName]];
++		NSString* title = [NSString stringWithFormat:NSLocalizedString(@"Switched '%@' to \"System\" Registration", nil), [appInfo displayName]];
  
 -		UIAlertController* infoAlert = [UIAlertController alertControllerWithTitle:title message:@"The app has been switched to the \"System\" registration state and will become launchable again after a respring." preferredStyle:UIAlertControllerStyleAlert];
-+		UIAlertController* infoAlert = [UIAlertController alertControllerWithTitle:title message:@"应用已切换到 \"System\" 注册状态，并将在重新启动后再次启动。" preferredStyle:UIAlertControllerStyleAlert];
++		UIAlertController* infoAlert = [UIAlertController alertControllerWithTitle:title message:NSLocalizedString(@"The app has been switched to the \"System\" registration state and will become launchable again after a respring.", nil) preferredStyle:UIAlertControllerStyleAlert];
  
 -		UIAlertAction* respringAction = [UIAlertAction actionWithTitle:@"Respring" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
-+		UIAlertAction* respringAction = [UIAlertAction actionWithTitle:@"注销设备" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
++		UIAlertAction* respringAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Respring", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
  		{
  			respring();
  		}];
@@ -129,7 +191,7 @@ index 9bad064..78078c5 100644
  		[infoAlert addAction:respringAction];
  
 -		UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleDefault handler:nil];
-+		UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"关闭" style:UIAlertActionStyleDefault handler:nil];
++		UIAlertAction* closeAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", nil) style:UIAlertActionStyleDefault handler:nil];
  
  		[infoAlert addAction:closeAction];
  
@@ -138,10 +200,10 @@ index 9bad064..78078c5 100644
  	NSString* appName = [appInfo displayName];
  
 -	UIAlertController* confirmAlert = [UIAlertController alertControllerWithTitle:@"Confirm Uninstallation" message:[NSString stringWithFormat:@"Uninstalling the app '%@' will delete the app and all data associated to it.", appName] preferredStyle:UIAlertControllerStyleAlert];
-+	UIAlertController* confirmAlert = [UIAlertController alertControllerWithTitle:@"确认卸载" message:[NSString stringWithFormat:@"卸载应用“%@”将删除该应用及其关联的所有数据。", appName] preferredStyle:UIAlertControllerStyleAlert];
++	UIAlertController* confirmAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Confirm Uninstallation", nil) message:[NSString stringWithFormat:NSLocalizedString(@"Uninstalling the app '%@' will delete the app and all data associated to it.", nil), appName] preferredStyle:UIAlertControllerStyleAlert];
  
 -	UIAlertAction* uninstallAction = [UIAlertAction actionWithTitle:@"Uninstall" style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action)
-+	UIAlertAction* uninstallAction = [UIAlertAction actionWithTitle:@"卸载" style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action)
++	UIAlertAction* uninstallAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Uninstall", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action)
  	{
  		if(appId)
  		{
@@ -150,7 +212,7 @@ index 9bad064..78078c5 100644
  	[confirmAlert addAction:uninstallAction];
  
 -	UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-+	UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
++	UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil];
  	[confirmAlert addAction:cancelAction];
  
  	[TSPresentationDelegate presentViewController:confirmAlert animated:YES completion:nil];
@@ -159,7 +221,7 @@ index 9bad064..78078c5 100644
  	UIAlertController* appSelectAlert = [UIAlertController alertControllerWithTitle:appName?:@"" message:appId?:@"" preferredStyle:UIAlertControllerStyleActionSheet];
  
 -	UIAlertAction* openAction = [UIAlertAction actionWithTitle:@"Open" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
-+	UIAlertAction* openAction = [UIAlertAction actionWithTitle:@"打开" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
++	UIAlertAction* openAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Open", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
  	{
  		[self openAppPressedForRowAtIndexPath:indexPath enableJIT:NO];
  		[self deselectRow];
@@ -168,7 +230,7 @@ index 9bad064..78078c5 100644
  	if ([appInfo isDebuggable])
  	{
 -		UIAlertAction* openWithJITAction = [UIAlertAction actionWithTitle:@"Open with JIT" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
-+		UIAlertAction* openWithJITAction = [UIAlertAction actionWithTitle:@"启用 JIT 打开" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
++		UIAlertAction* openWithJITAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Open with JIT", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
  		{
  			[self openAppPressedForRowAtIndexPath:indexPath enableJIT:YES];
  			[self deselectRow];
@@ -177,7 +239,7 @@ index 9bad064..78078c5 100644
  	}
  
 -	UIAlertAction* showDetailsAction = [UIAlertAction actionWithTitle:@"Show Details" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
-+	UIAlertAction* showDetailsAction = [UIAlertAction actionWithTitle:@"显示详情" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
++	UIAlertAction* showDetailsAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Show Details", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
  	{
  		[self showDetailsPressedForRowAtIndexPath:indexPath];
  		[self deselectRow];
@@ -186,7 +248,7 @@ index 9bad064..78078c5 100644
  	}
  
 -	UIAlertAction* switchRegistrationAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"Switch to \"%@\" Registration", switchState] style:switchActionStyle handler:^(UIAlertAction* action)
-+	UIAlertAction* switchRegistrationAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"切换到“%@”注册", switchState] style:switchActionStyle handler:^(UIAlertAction* action)
++	UIAlertAction* switchRegistrationAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Switch to \"%@\" Registration", nil), switchState] style:switchActionStyle handler:^(UIAlertAction* action)
  	{
  		[self changeAppRegistrationForRowAtIndexPath:indexPath toState:switchState];
  		[self deselectRow];
@@ -194,7 +256,7 @@ index 9bad064..78078c5 100644
  	[appSelectAlert addAction:switchRegistrationAction];
  
 -	UIAlertAction* uninstallAction = [UIAlertAction actionWithTitle:@"Uninstall App" style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action)
-+	UIAlertAction* uninstallAction = [UIAlertAction actionWithTitle:@"卸载应用" style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action)
++	UIAlertAction* uninstallAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Uninstall App", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action)
  	{
  		[self uninstallPressedForRowAtIndexPath:indexPath];
  		[self deselectRow];
@@ -202,12 +264,12 @@ index 9bad064..78078c5 100644
  	[appSelectAlert addAction:uninstallAction];
  
 -	UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction* action)
-+	UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction* action)
++	UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction* action)
  	{
  		[self deselectRow];
  	}];
 diff --git a/TrollStore/TSApplicationsManager.m b/TrollStore/TSApplicationsManager.m
-index 8dba589..2ce406a 100644
+index 8dba589..9a75dcb 100644
 --- a/TrollStore/TSApplicationsManager.m
 +++ b/TrollStore/TSApplicationsManager.m
 @@ -21,76 +21,76 @@ extern NSUserDefaults* trollStoreUserDefaults();
@@ -215,48 +277,46 @@ index 8dba589..2ce406a 100644
  - (NSError*)errorForCode:(int)code
  {
 -    NSString* errorDescription = @"Unknown Error";
-+    NSString* errorDescription = @"未知错误";
++        NSString *errorDescription = NSLocalizedString(@"Unknown Error", nil);
      switch(code)
      {
--        // IPA install errors
-+        // IPA 安装错误
+         // IPA install errors
          case 166:
 -        errorDescription = @"The IPA file does not exist or is not accessible.";
-+        errorDescription = @"IPA 文件不存在或不可访问。";
++        errorDescription = NSLocalizedString(@"The IPA file does not exist or is not accessible.", nil);
          break;
          case 167:
 -        errorDescription = @"The IPA file does not appear to contain an app.";
-+        errorDescription = @"IPA 文件似乎不包含应用程序。";
++        errorDescription = NSLocalizedString(@"The IPA file does not appear to contain an app.", nil);
          break;
          case 168:
 -        errorDescription = @"Failed to extract IPA file.";
-+        errorDescription = @"提取 IPA 文件失败。";
++        errorDescription = NSLocalizedString(@"Failed to extract IPA file.", nil);
          break;
          case 169:
 -        errorDescription = @"Failed to extract update tar file.";
-+        errorDescription = @"提取更新 tar 文件失败。";
++        errorDescription = NSLocalizedString(@"Failed to extract update tar file.", nil);
          break;
--        // App install errors
-+        // 应用程序安装错误
+         // App install errors
          case 170:
 -        errorDescription = @"Failed to create container for app bundle.";
-+        errorDescription = @"无法为应用程序包创建容器。";
++        errorDescription = NSLocalizedString(@"Failed to create container for app bundle.", nil);
          break;
          case 171:
 -        errorDescription = @"A non-TrollStore app with the same identifier is already installed. If you are absolutely sure it is not, you can force install it.";
-+        errorDescription = @"已安装具有相同标识符的非 TrollStore 应用程序。 如果您确信不是这样，请可以强制安装。";
++        errorDescription = NSLocalizedString(@"A non-TrollStore app with the same identifier is already installed. If you are absolutely sure it is not, you can force install it.", nil);
          break;
          case 172:
 -        errorDescription = @"The app does not contain an Info.plist file.";
-+        errorDescription = @"该应用程序不包含 Info.plist 文件。";
++        errorDescription = NSLocalizedString(@"The app does not contain an Info.plist file.", nil);
          break;
          case 173:
 -        errorDescription = @"The app is not signed with a fake CoreTrust certificate and ldid is not installed. Install ldid in the settings tab and try again.";
-+        errorDescription = @"应用程序未使用虚假 CoreTrust 证书签名，也未安装 ldid。 在设置选项卡中安装 ldid，然后重试。";
++        errorDescription = NSLocalizedString(@"The app is not signed with a fake CoreTrust certificate and ldid is not installed. Install ldid in the settings tab and try again.", nil);
          break;
          case 174:
 -        errorDescription = @"The app's main executable does not exist.";
-+        errorDescription = @"该应用程序的主可执行文件不存在。";
++        errorDescription = NSLocalizedString(@"The app's main executable does not exist.", nil);
          break;
          case 175: {
              //if (@available(iOS 16, *)) {
@@ -264,79 +324,83 @@ index 8dba589..2ce406a 100644
              //}
              //else {
 -                errorDescription = @"Failed to sign the app. ldid returned a non zero status code.";
-+                errorDescription = @"无法对应用程序签名。 ldid 返回了非零状态码。";
++                errorDescription = NSLocalizedString(@"Failed to sign the app. ldid returned a non zero status code.", nil);
              //}
          }
          break;
          case 176:
 -        errorDescription = @"The app's Info.plist is missing required values.";
-+        errorDescription = @"应用程序的 Info.plist 缺少必需的值。";
++            errorDescription = NSLocalizedString(@"The app's Info.plist is missing required values.", nil);
          break;
          case 177:
 -        errorDescription = @"Failed to mark app as TrollStore app.";
-+        errorDescription = @"无法将应用程序标记为 TrollStore 应用程序。";
++            errorDescription = NSLocalizedString(@"Failed to mark app as TrollStore app.", nil);
          break;
          case 178:
 -        errorDescription = @"Failed to copy app bundle.";
-+        errorDescription = @"无法复制应用程序包。";
++            errorDescription = NSLocalizedString(@"Failed to copy app bundle.", nil);
          break;
          case 179:
 -        errorDescription = @"The app you tried to install has the same identifier as a system app already installed on the device. The installation has been prevented to protect you from possible bootloops or other issues.";
-+        errorDescription = @"您尝试安装的应用程序具有与设备上已安装的系统应用程序相同的标识符。 已阻止安装以防止可能的启动循环或其他问题。";
++            errorDescription = NSLocalizedString(@"The app you tried to install has the same identifier as a system app already installed on the device. The installation has been prevented to protect you from possible bootloops or other issues.", nil);
          break;
          case 180:
 -        errorDescription = @"The app you tried to install has an encrypted main binary, which cannot have the CoreTrust bypass applied to it. Please ensure you install decrypted apps.";
-+        errorDescription = @"您尝试安装的应用程序具有加密的主要二进制文件，无法对其应用 CoreTrust 绕过。 请确保您安装了解密的应用程序。";
++            errorDescription = NSLocalizedString(@"The app you tried to install has an encrypted main binary, which cannot have the CoreTrust bypass applied to it. Please ensure you install decrypted apps.", nil);
          break;
          case 181:
 -        errorDescription = @"Failed to add app to icon cache.";
-+        errorDescription = @"无法将应用程序添加到图标缓存。";
++            errorDescription = NSLocalizedString(@"Failed to add app to icon cache.", nil);
          break;
          case 182:
 -        errorDescription = @"The app was installed successfully, but requires developer mode to be enabled to run. After rebooting, select \"Turn On\" to enable developer mode.";
-+        errorDescription = @"应用程序安装成功，但需要启用开发者模式才能运行。 重新启动后，选择“打开”以启用开发者模式。";
++            errorDescription = NSLocalizedString(@"The app was installed successfully, but requires developer mode to be enabled to run. After rebooting, select \"Turn On\" to enable developer mode.", nil);
          break;
          case 183:
 -        errorDescription = @"Failed to enable developer mode.";
-+        errorDescription = @"无法启用开发者模式。";
++            errorDescription = NSLocalizedString(@"Failed to enable developer mode.", nil);
          break;
          case 184:
 -        errorDescription = @"The app was installed successfully, but has additional binaries that are encrypted (e.g. extensions, plugins). The app itself should work, but you may experience broken functionality as a result.";
-+        errorDescription = @"应用程序安装成功，但具有其他加密的二进制文件（例如扩展，插件）。 应用程序本身应该可以正常工作，但您可能会因此遇到功能缺失。";
++            errorDescription = NSLocalizedString(@"The app was installed successfully, but has additional binaries that are encrypted (e.g. extensions, plugins). The app itself should work, but you may experience broken functionality as a result.", nil);
          break;
          case 185:
 -        errorDescription = @"Failed to sign the app. The CoreTrust bypass returned a non zero status code.";
-+        errorDescription = @"无法对应用程序签名。 CoreTrust 绕过返回了非零状态码。";
++        errorDescription = NSLocalizedString(@"Failed to sign the app. The CoreTrust bypass returned a non zero status code.", nil);
      }
  
      NSError* error = [NSError errorWithDomain:TrollStoreErrorDomain code:code userInfo:@{NSLocalizedDescriptionKey : errorDescription}];
 diff --git a/TrollStore/TSDonateListController.m b/TrollStore/TSDonateListController.m
-index 899bcbb..df5c992 100644
+index 899bcbb..b71b5d5 100644
 --- a/TrollStore/TSDonateListController.m
 +++ b/TrollStore/TSDonateListController.m
-@@ -22,10 +22,10 @@
+@@ -21,11 +21,11 @@
+ 		_specifiers = [NSMutableArray new];
  		
  		PSSpecifier* alfieGroupSpecifier = [PSSpecifier emptyGroupSpecifier];
- 		alfieGroupSpecifier.name = @"Alfie";
+-		alfieGroupSpecifier.name = @"Alfie";
 -		[alfieGroupSpecifier setProperty:@"Alfie found the new CoreTrust bug (CVE-2023-41991) via patchdiffing, produced a POC binary and worked on automatically applying it with the help of the ChOma library, while also contributing to said library." forKey:@"footerText"];
-+		[alfieGroupSpecifier setProperty:@"Alfie 发现了新的 CoreTrust 漏洞（CVE-2023-41991），通过 patchdiffing 生成了 POC 二进制文件，并借助 ChOma 库自动应用了该漏洞，同时也对该库进行了贡献。" forKey:@"footerText"];
++		alfieGroupSpecifier.name = NSLocalizedString(@"Alfie", nil);
++		[alfieGroupSpecifier setProperty:NSLocalizedString(@"Alfie found the new CoreTrust bug (CVE-2023-41991) via patchdiffing, produced a POC binary and worked on automatically applying it with the help of the ChOma library, while also contributing to said library.", nil) forKey:@"footerText"];
  		[_specifiers addObject:alfieGroupSpecifier];
  
 -		PSSpecifier* alfieDonateSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Donate to alfiecg_dev"
-+		PSSpecifier* alfieDonateSpecifier = [PSSpecifier preferenceSpecifierNamed:@"捐赠给 alfiecg_dev"
++		PSSpecifier* alfieDonateSpecifier = [PSSpecifier preferenceSpecifierNamed:NSLocalizedString(@"Donate to alfiecg_dev", nil)
  									target:self
  									set:nil
  									get:nil
-@@ -39,10 +39,10 @@
+@@ -38,11 +38,11 @@
+ 		[_specifiers addObject:alfieDonateSpecifier];
  
  		PSSpecifier* opaGroupSpecifier = [PSSpecifier emptyGroupSpecifier];
- 		opaGroupSpecifier.name = @"Opa";
+-		opaGroupSpecifier.name = @"Opa";
 -		[opaGroupSpecifier setProperty:@"Opa developed the ChOma library, helped with automating the bug using it and integrated it into TrollStore." forKey:@"footerText"];
-+		[opaGroupSpecifier setProperty:@"Opa 开发了 ChOma 库，帮助使用它自动化了漏洞，并将其集成到了 TrollStore 中。" forKey:@"footerText"];
++		opaGroupSpecifier.name = NSLocalizedString(@"Opa", nil);
++		[opaGroupSpecifier setProperty:NSLocalizedString(@"Opa developed the ChOma library, helped with automating the bug using it and integrated it into TrollStore.", nil) forKey:@"footerText"];
  		[_specifiers addObject:opaGroupSpecifier];
  
 -		PSSpecifier* opaDonateSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Donate to opa334"
-+		PSSpecifier* opaDonateSpecifier = [PSSpecifier preferenceSpecifierNamed:@"捐赠给 opa334"
++		PSSpecifier* opaDonateSpecifier = [PSSpecifier preferenceSpecifierNamed:NSLocalizedString(@"Donate to opa334", nil)
  									target:self
  									set:nil
  									get:nil
@@ -345,12 +409,12 @@ index 899bcbb..df5c992 100644
  		[_specifiers addObject:opaDonateSpecifier];
  	}
 -	[(UINavigationItem *)self.navigationItem setTitle:@"Donate"];
-+	[(UINavigationItem *)self.navigationItem setTitle:@"捐赠"];
++	[(UINavigationItem *)self.navigationItem setTitle:NSLocalizedString(@"Donate", nil)];
  	return _specifiers;
  }
  
 diff --git a/TrollStore/TSInstallationController.m b/TrollStore/TSInstallationController.m
-index 03c3e28..873e5c7 100644
+index 03c3e28..709da2f 100644
 --- a/TrollStore/TSInstallationController.m
 +++ b/TrollStore/TSInstallationController.m
 @@ -13,7 +13,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
@@ -358,25 +422,23 @@ index 03c3e28..873e5c7 100644
  	dispatch_async(dispatch_get_main_queue(), ^
  	{
 -		[TSPresentationDelegate startActivity:@"Installing"];
-+		[TSPresentationDelegate startActivity:@"安装中"];
++		[TSPresentationDelegate startActivity:NSLocalizedString(@"Installing", nil)];
  		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
  		{
  			// Install IPA
-@@ -37,14 +37,14 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
- 						if(completionBlock) completionBlock(YES, nil);
+@@ -38,13 +38,13 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
  					} else if (ret == 171) {
  						// recoverable error
--						UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Install Error %d", ret] message:[error localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
+ 						UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Install Error %d", ret] message:[error localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
 -						UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
-+						UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"安装错误 %d", ret] message:[error localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
-+						UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"关闭" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
++						UIAlertAction* closeAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
  						{
  							if(completionBlock) completionBlock(NO, error);
  						}];
  						[errorAlert addAction:closeAction];
  
 -						UIAlertAction* forceInstallAction = [UIAlertAction actionWithTitle:@"Force Installation" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
-+						UIAlertAction* forceInstallAction = [UIAlertAction actionWithTitle:@"强制安装" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
++						UIAlertAction* forceInstallAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Force Installation", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
  						{
  							[self handleAppInstallFromFile:pathToIPA forceInstall:YES completion:completionBlock];
  						}];
@@ -386,15 +448,15 @@ index 03c3e28..873e5c7 100644
  						// non-fatal informative message
 -						UIAlertController* rebootNotification = [UIAlertController alertControllerWithTitle:@"Reboot Required" message:[error localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
 -						UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleCancel handler:^(UIAlertAction* action)
-+						UIAlertController* rebootNotification = [UIAlertController alertControllerWithTitle:@"需要重启" message:[error localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
-+						UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"关闭" style:UIAlertActionStyleCancel handler:^(UIAlertAction* action)
++						UIAlertController* rebootNotification = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Reboot Required", nil)  message:[error localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
++						UIAlertAction* closeAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction* action)
  						{
  							if(completionBlock) completionBlock(YES, nil);
  						}];
  						[rebootNotification addAction:closeAction];
  
 -						UIAlertAction* rebootAction = [UIAlertAction actionWithTitle:@"Reboot Now" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
-+						UIAlertAction* rebootAction = [UIAlertAction actionWithTitle:@"立即重启" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
++						UIAlertAction* rebootAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Reboot Now", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
  						{
  							if(completionBlock) completionBlock(YES, nil);
  							spawnRoot(rootHelperPath(), @[@"reboot"], nil, nil);
@@ -404,8 +466,8 @@ index 03c3e28..873e5c7 100644
  						// warning
 -						UIAlertController* warningAlert = [UIAlertController alertControllerWithTitle:@"Warning" message:[error localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
 -						UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleCancel handler:^(UIAlertAction* action)
-+						UIAlertController* warningAlert = [UIAlertController alertControllerWithTitle:@"警告" message:[error localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
-+						UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"关闭" style:UIAlertActionStyleCancel handler:^(UIAlertAction* action)
++						UIAlertController* warningAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Warning", nil) message:[error localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
++						UIAlertAction* closeAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction* action)
  						{
  							if(completionBlock) completionBlock(YES, nil);
  						}];
@@ -415,12 +477,12 @@ index 03c3e28..873e5c7 100644
  						// unrecoverable error
 -						UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Install Error %d", ret] message:[error localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
 -						UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleDefault handler:nil];
-+						UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"安装错误 %d", ret] message:[error localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
-+						UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"关闭" style:UIAlertActionStyleDefault handler:nil];
++						UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Install Error %d", nil), ret] message:[error localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
++						UIAlertAction* closeAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", nil) style:UIAlertActionStyleDefault handler:nil];
  						[errorAlert addAction:closeAction];
  
 -						UIAlertAction* copyLogAction = [UIAlertAction actionWithTitle:@"Copy Debug Log" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
-+						UIAlertAction* copyLogAction = [UIAlertAction actionWithTitle:@"复制调试日志" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
++						UIAlertAction* copyLogAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Copy Debug Log", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
  						{
  							UIPasteboard* pasteboard = [UIPasteboard generalPasteboard];
  							pasteboard.string = log;
@@ -429,14 +491,14 @@ index 03c3e28..873e5c7 100644
  				installAlert.attributedTitle = [appInfo detailedInfoTitle];
  				installAlert.attributedMessage = [appInfo detailedInfoDescription];
 -				UIAlertAction* installAction = [UIAlertAction actionWithTitle:@"Install" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action)
-+				UIAlertAction* installAction = [UIAlertAction actionWithTitle:@"安装" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action)
++				UIAlertAction* installAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Install", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action)
  				{
  					[self handleAppInstallFromFile:pathToIPA completion:completionBlock];
  				}];
  				[installAlert addAction:installAction];
  
 -				UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction* action)
-+				UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction* action)
++				UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction* action)
  				{
  					if(completionBlock) completionBlock(NO, nil);
  				}];
@@ -446,8 +508,8 @@ index 03c3e28..873e5c7 100644
  			{
 -				UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Parse Error %ld", error.code] message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
 -				UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleDefault handler:nil];
-+				 UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"解析错误 %ld", error.code] message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
-+				UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"关闭" style:UIAlertActionStyleDefault handler:nil];
++				UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Parse Error %ld", nil), error.code] message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
++				UIAlertAction* closeAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", nil) style:UIAlertActionStyleDefault handler:nil];
  				[errorAlert addAction:closeAction];
  
  				[TSPresentationDelegate presentViewController:errorAlert animated:YES completion:nil];
@@ -457,8 +519,8 @@ index 03c3e28..873e5c7 100644
  					{
 -						UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:@"Error" message:[NSString stringWithFormat:@"Error downloading app: %@", error] preferredStyle:UIAlertControllerStyleAlert];
 -						UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleDefault handler:nil];
-+						UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:@"错误" message:[NSString stringWithFormat:@"下载应用时发生错误: %@", error] preferredStyle:UIAlertControllerStyleAlert];
-+						UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"关闭" style:UIAlertActionStyleDefault handler:nil];
++						UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil) message:[NSString stringWithFormat:NSLocalizedString(@"Error downloading app: %@", nil), error] preferredStyle:UIAlertControllerStyleAlert];
++						UIAlertAction* closeAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", nil) style:UIAlertActionStyleDefault handler:nil];
  						[errorAlert addAction:closeAction];
  
  						[TSPresentationDelegate presentViewController:errorAlert animated:YES completion:^
@@ -467,7 +529,7 @@ index 03c3e28..873e5c7 100644
  		}];
  
 -		[TSPresentationDelegate startActivity:@"Downloading" withCancelHandler:^
-+		[TSPresentationDelegate startActivity:@"下载中" withCancelHandler:^
++		[TSPresentationDelegate startActivity:NSLocalizedString(@"Downloading", nil) withCancelHandler:^
  		{
  			[downloadTask cancel];
  		}];
@@ -476,7 +538,7 @@ index 03c3e28..873e5c7 100644
  			NSURLRequest* ldidRequest = [NSURLRequest requestWithURL:ldidURL];
  
 -			[TSPresentationDelegate startActivity:@"Installing ldid"];
-+			[TSPresentationDelegate startActivity:@"安装 ldid"];
++			[TSPresentationDelegate startActivity:NSLocalizedString(@"Installing ldid", nil)];
  
  			NSURLSessionDownloadTask* downloadTask = [NSURLSession.sharedSession downloadTaskWithRequest:ldidRequest completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error)
  			{
@@ -484,13 +546,13 @@ index 03c3e28..873e5c7 100644
  				{
 -					UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:@"Error" message:[NSString stringWithFormat:@"Error downloading ldid: %@", error] preferredStyle:UIAlertControllerStyleAlert];
 -					UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleDefault handler:nil];
-+					UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:@"错误" message:[NSString stringWithFormat:@"下载 ldid 时发生错误: %@", error] preferredStyle:UIAlertControllerStyleAlert];
-+					UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"关闭" style:UIAlertActionStyleDefault handler:nil];
++					UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil) message:[NSString stringWithFormat:NSLocalizedString(@"Error downloading ldid: %@", nil), error] preferredStyle:UIAlertControllerStyleAlert];
++					UIAlertAction* closeAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", nil) style:UIAlertActionStyleDefault handler:nil];
  					[errorAlert addAction:closeAction];
  
  					dispatch_async(dispatch_get_main_queue(), ^
 diff --git a/TrollStore/TSRootViewController.m b/TrollStore/TSRootViewController.m
-index 959767b..1b22fca 100644
+index 959767b..ab86709 100644
 --- a/TrollStore/TSRootViewController.m
 +++ b/TrollStore/TSRootViewController.m
 @@ -9,10 +9,10 @@
@@ -498,11 +560,11 @@ index 959767b..1b22fca 100644
  
  	TSAppTableViewController* appTableVC = [[TSAppTableViewController alloc] init];
 -	appTableVC.title = @"Apps";
-+	appTableVC.title = @"应用";
++	appTableVC.title = NSLocalizedString(@"Apps", nil);
  
  	TSSettingsListController* settingsListVC = [[TSSettingsListController alloc] init];
 -	settingsListVC.title = @"Settings";
-+	settingsListVC.title = @"设置";
++	settingsListVC.title = NSLocalizedString(@"Settings", nil);
  
  	UINavigationController* appNavigationController = [[UINavigationController alloc] initWithRootViewController:appTableVC];
  	UINavigationController* settingsNavigationController = [[UINavigationController alloc] initWithRootViewController:settingsListVC];
@@ -511,33 +573,24 @@ index 959767b..1b22fca 100644
  	settingsNavigationController.tabBarItem.image = [UIImage systemImageNamed:@"gear"];
  
 -	self.title = @"Root View Controller";
-+	self.title = @"Root 视图控制器";
++	self.title = NSLocalizedString(@"Root View Controller", nil);
  	self.viewControllers = @[appNavigationController, settingsNavigationController];
  }
  
 diff --git a/TrollStore/TSSceneDelegate.m b/TrollStore/TSSceneDelegate.m
-index b5090fa..1f3fcc2 100644
+index b5090fa..366cdc2 100644
 --- a/TrollStore/TSSceneDelegate.m
 +++ b/TrollStore/TSSceneDelegate.m
-@@ -25,7 +25,7 @@
- 
- 					if(shouldExit)
- 					{
--						NSLog(@"Respring + Exit");
-+						NSLog(@"注销设备 + 退出");
- 						respring();
- 						exit(0);
- 					}
 @@ -40,10 +40,10 @@
  				else if([url.pathExtension.lowercaseString isEqualToString:@"tar"])
  				{
  					// Update TrollStore itself
 -					NSLog(@"Updating TrollStore...");
-+					NSLog(@"正在更新 TrollStore...");
++					NSLog(NSLocalizedString(@"Updating TrollStore...", nil));
  					int ret = spawnRoot(rootHelperPath(), @[@"install-trollstore", url.path], nil, nil);
  					doneBlock(ret == 0);
 -					NSLog(@"Updated TrollStore!");
-+					NSLog(@"已更新 TrollStore！");
++					NSLog(NSLocalizedString(@"Updated TrollStore!", nil));
  				}
  			}
  			else if([url.scheme isEqualToString:@"apple-magnifier"])
@@ -546,10 +599,10 @@ index b5090fa..1f3fcc2 100644
  		// we don't have TSAppInfo here so we cannot check the registration state
  
 -		NSString* failTitle = [NSString stringWithFormat:@"Failed to open %@", appId];
-+		NSString* failTitle = [NSString stringWithFormat:@"打开 %@ 失败", appId];
++		NSString* failTitle = [NSString stringWithFormat:NSLocalizedString(@"Failed to open %@", nil), appId];
  		UIAlertController* didFailController = [UIAlertController alertControllerWithTitle:failTitle message:failMessage preferredStyle:UIAlertControllerStyleAlert];
 -		UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-+		UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
++		UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil];
  
  		[didFailController addAction:cancelAction];
  		[TSPresentationDelegate presentViewController:didFailController animated:YES completion:nil];
@@ -559,27 +612,25 @@ index b5090fa..1f3fcc2 100644
  		{
 -			UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:@"Error" message:[NSString stringWithFormat:@"Error enabling JIT: trollstorehelper returned %d", ret] preferredStyle:UIAlertControllerStyleAlert];
 -			UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleDefault handler:nil];
-+			UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:@"错误" message:[NSString stringWithFormat:@"启用 JIT 出错：trollstorehelper 返回 %d", ret] preferredStyle:UIAlertControllerStyleAlert];
-+			UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"关闭" style:UIAlertActionStyleDefault handler:nil];
++			UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil) message:[NSString stringWithFormat:NSLocalizedString(@"Error enabling JIT: trollstorehelper returned %d", nil), ret] preferredStyle:UIAlertControllerStyleAlert];
++			UIAlertAction* closeAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", nil) style:UIAlertActionStyleDefault handler:nil];
  			[errorAlert addAction:closeAction];
  			[TSPresentationDelegate presentViewController:errorAlert animated:YES completion:nil];
  		}
 diff --git a/TrollStore/TSSettingsAdvancedListController.m b/TrollStore/TSSettingsAdvancedListController.m
-index 8bdc1b9..ddb88cc 100644
+index 8bdc1b9..26a26af 100644
 --- a/TrollStore/TSSettingsAdvancedListController.m
 +++ b/TrollStore/TSSettingsAdvancedListController.m
-@@ -15,11 +15,11 @@ extern NSUserDefaults* trollStoreUserDefaults();
- 		_specifiers = [NSMutableArray new];
+@@ -16,10 +16,10 @@ extern NSUserDefaults* trollStoreUserDefaults();
  
  		PSSpecifier* installationMethodGroupSpecifier = [PSSpecifier emptyGroupSpecifier];
--		//installationMethodGroupSpecifier.name = @"Installation";
+ 		//installationMethodGroupSpecifier.name = @"Installation";
 -		[installationMethodGroupSpecifier setProperty:@"installd:\nInstalls applications by doing a placeholder installation through installd, fixing the permissions and then adding it to icon cache.\nAdvantage: Might be slightly more persistent than the custom method in terms of icon cache reloads.\nDisadvantage: Causes some small issues with certain applications for seemingly no reason (E.g. Watusi cannot save preferences when being installed using this method).\n\nCustom (Recommended):\nInstalls applications by manually creating a bundle using MobileContainerManager, copying the app into it and adding it to icon cache.\nAdvantage: No known issues (As opposed to the Watusi issue outlined in the installd method).\nDisadvantage: Might be slightly less persistent then the installd method in terms of icon cache reloads.\n\nNOTE: In cases where installd is selected but the placeholder installation fails, TrollStore automatically falls back to using the Custom method." forKey:@"footerText"];
-+		//installationMethodGroupSpecifier.name = @"安装方式";
-+		[installationMethodGroupSpecifier setProperty:@"Installd：\n通过在 installd 中执行占位符安装、修复权限，然后将其添加到图标缓存中来安装应用程序。\n优点：在图标缓存重新加载方面可能比自定义方式稍微持久一些。\n缺点：出现某些应用程序的一些小问题，似乎没有原因（例如，使用此方式安装的 Watusi 无法保存偏好设置）。\n\n自定义（推荐）:\n通过手动创建一个 MobileContainerManager 包并将应用程序复制到其中，然后将其添加到图标缓存中来安装应用程序。\n优点：没有已知问题（相对于 Installd 方式中概述的 Watusi 问题）。\n缺点：在图标缓存重新加载方面可能比 Installd 方式稍微不持久。\n\n注意：在选择 Installd 但占位符安装失败的情况下，TrollStore 会自动回退到使用自定义方式。" forKey:@"footerText"];
++		[installationMethodGroupSpecifier setProperty:NSLocalizedString(@"installd:\nInstalls applications by doing a placeholder installation through installd, fixing the permissions and then adding it to icon cache.\nAdvantage: Might be slightly more persistent than the custom method in terms of icon cache reloads.\nDisadvantage: Causes some small issues with certain applications for seemingly no reason (E.g. Watusi cannot save preferences when being installed using this method).\n\nCustom (Recommended):\nInstalls applications by manually creating a bundle using MobileContainerManager, copying the app into it and adding it to icon cache.\nAdvantage: No known issues (As opposed to the Watusi issue outlined in the installd method).\nDisadvantage: Might be slightly less persistent then the installd method in terms of icon cache reloads.\n\nNOTE: In cases where installd is selected but the placeholder installation fails, TrollStore automatically falls back to using the Custom method.", nil) forKey:@"footerText"];
  		[_specifiers addObject:installationMethodGroupSpecifier];
  
 -		PSSpecifier* installationMethodSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Installation Method"
-+		PSSpecifier* installationMethodSpecifier = [PSSpecifier preferenceSpecifierNamed:@"安装方式"
++		PSSpecifier* installationMethodSpecifier = [PSSpecifier preferenceSpecifierNamed:NSLocalizedString(@"Installation Method", nil)
  											target:self
  											set:nil
  											get:nil
@@ -588,7 +639,7 @@ index 8bdc1b9..ddb88cc 100644
  		[_specifiers addObject:installationMethodSpecifier];
  
 -		PSSpecifier* installationMethodSegmentSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Installation Method Segment"
-+		PSSpecifier* installationMethodSegmentSpecifier = [PSSpecifier preferenceSpecifierNamed:@"安装方式段"
++		PSSpecifier* installationMethodSegmentSpecifier = [PSSpecifier preferenceSpecifierNamed:NSLocalizedString(@"Installation Method Segment", nil)
  											target:self
  											set:@selector(setPreferenceValue:specifier:)
  											get:@selector(readPreferenceValue:)
@@ -597,19 +648,18 @@ index 8bdc1b9..ddb88cc 100644
  		[installationMethodSegmentSpecifier setProperty:@"installationMethod" forKey:@"key"];
  		installationMethodSegmentSpecifier.values = @[@0, @1];
 -		installationMethodSegmentSpecifier.titleDictionary = @{@0 : @"installd", @1 : @"Custom"};
-+		installationMethodSegmentSpecifier.titleDictionary = @{@0 : @"Installd", @1 : @"自定义"};
++		installationMethodSegmentSpecifier.titleDictionary = @{@0 : NSLocalizedString(@"installd", nil), @1 : NSLocalizedString(@"Custom", nil)};
  		[installationMethodSegmentSpecifier setProperty:@1 forKey:@"default"];
  		[_specifiers addObject:installationMethodSegmentSpecifier];
  
  		PSSpecifier* uninstallationMethodGroupSpecifier = [PSSpecifier emptyGroupSpecifier];
--		//uninstallationMethodGroupSpecifier.name = @"Uninstallation";
+ 		//uninstallationMethodGroupSpecifier.name = @"Uninstallation";
 -		[uninstallationMethodGroupSpecifier setProperty:@"installd (Recommended):\nUninstalls applications using the same API that SpringBoard uses when uninstalling them from the home screen.\n\nCustom:\nUninstalls applications by removing them from icon cache and then deleting their application and data bundles directly.\n\nNOTE: In cases where installd is selected but the stock uninstallation fails, TrollStore automatically falls back to using the Custom method." forKey:@"footerText"];
-+		//uninstallationMethodGroupSpecifier.name = @"卸载方式";
-+		[uninstallationMethodGroupSpecifier setProperty:@"Installd（推荐）:\n使用与 SpringBoard 在从主屏幕卸载应用程序时使用的相同 API 来卸载应用程序。\n\n自定义:\n通过从图标缓存中删除它们，然后直接删除其应用程序和数据包束来卸载应用程序。\n\n注意：在选择 Installd 但标准卸载失败的情况下，TrollStore 会自动回退到使用自定义方式。" forKey:@"footerText"];
++		[uninstallationMethodGroupSpecifier setProperty:NSLocalizedString(@"installd (Recommended):\nUninstalls applications using the same API that SpringBoard uses when uninstalling them from the home screen.\n\nCustom:\nUninstalls applications by removing them from icon cache and then deleting their application and data bundles directly.\n\nNOTE: In cases where installd is selected but the stock uninstallation fails, TrollStore automatically falls back to using the Custom method.", nil) forKey:@"footerText"];
  		[_specifiers addObject:uninstallationMethodGroupSpecifier];
  
 -		PSSpecifier* uninstallationMethodSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Uninstallation Method"
-+		PSSpecifier* uninstallationMethodSpecifier = [PSSpecifier preferenceSpecifierNamed:@"卸载方式"
++		PSSpecifier* uninstallationMethodSpecifier = [PSSpecifier preferenceSpecifierNamed:NSLocalizedString(@"Uninstallation Method", nil)
  											target:self
  											set:nil
  											get:nil
@@ -618,7 +668,7 @@ index 8bdc1b9..ddb88cc 100644
  		[_specifiers addObject:uninstallationMethodSpecifier];
  
 -		PSSpecifier* uninstallationMethodSegmentSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Installation Method Segment"
-+		PSSpecifier* uninstallationMethodSegmentSpecifier = [PSSpecifier preferenceSpecifierNamed:@"卸载方式段"
++		PSSpecifier* uninstallationMethodSegmentSpecifier = [PSSpecifier preferenceSpecifierNamed:NSLocalizedString(@"Installation Method Segment", nil)
  											target:self
  											set:@selector(setPreferenceValue:specifier:)
  											get:@selector(readPreferenceValue:)
@@ -627,18 +677,18 @@ index 8bdc1b9..ddb88cc 100644
  		[uninstallationMethodSegmentSpecifier setProperty:@"uninstallationMethod" forKey:@"key"];
  		uninstallationMethodSegmentSpecifier.values = @[@0, @1];
 -		uninstallationMethodSegmentSpecifier.titleDictionary = @{@0 : @"installd", @1 : @"Custom"};
-+		uninstallationMethodSegmentSpecifier.titleDictionary = @{@0 : @"Installd", @1 : @"自定义"};
++		uninstallationMethodSegmentSpecifier.titleDictionary = @{@0 : NSLocalizedString(@"installd", nil), @1 : NSLocalizedString(@"Custom", nil)};
  		[uninstallationMethodSegmentSpecifier setProperty:@0 forKey:@"default"];
  		[_specifiers addObject:uninstallationMethodSegmentSpecifier];
  	}
  
 -	[(UINavigationItem *)self.navigationItem setTitle:@"Advanced"];
-+	[(UINavigationItem *)self.navigationItem setTitle:@"高级"];
++	[(UINavigationItem *)self.navigationItem setTitle:NSLocalizedString(@"Advanced", nil)];
  	return _specifiers;
  }
  
 diff --git a/TrollStore/TSSettingsListController.m b/TrollStore/TSSettingsListController.m
-index 61fb1e7..4d31e0a 100644
+index 61fb1e7..a4ac391 100644
 --- a/TrollStore/TSSettingsListController.m
 +++ b/TrollStore/TSSettingsListController.m
 @@ -76,10 +76,10 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
@@ -646,11 +696,11 @@ index 61fb1e7..4d31e0a 100644
  		{
  			PSSpecifier* updateTrollStoreGroupSpecifier = [PSSpecifier emptyGroupSpecifier];
 -			updateTrollStoreGroupSpecifier.name = @"Update Available";
-+			updateTrollStoreGroupSpecifier.name = @"有更新可用";
++			updateTrollStoreGroupSpecifier.name = NSLocalizedString(@"Update Available", nil);
  			[_specifiers addObject:updateTrollStoreGroupSpecifier];
  
 -			PSSpecifier* updateTrollStoreSpecifier = [PSSpecifier preferenceSpecifierNamed:[NSString stringWithFormat:@"Update TrollStore to %@", _newerVersion]
-+			PSSpecifier* updateTrollStoreSpecifier = [PSSpecifier preferenceSpecifierNamed:[NSString stringWithFormat:@"更新 TrollStore 到 %@", _newerVersion]
++			PSSpecifier* updateTrollStoreSpecifier = [PSSpecifier preferenceSpecifierNamed:[NSString stringWithFormat:NSLocalizedString(@"Update TrollStore to %@", nil), _newerVersion]
  										target:self
  										set:nil
  										get:nil
@@ -660,12 +710,12 @@ index 61fb1e7..4d31e0a 100644
  			PSSpecifier* enableDevModeGroupSpecifier = [PSSpecifier emptyGroupSpecifier];
 -			enableDevModeGroupSpecifier.name = @"Developer Mode";
 -			[enableDevModeGroupSpecifier setProperty:@"Some apps require developer mode enabled to launch. This requires a reboot to take effect." forKey:@"footerText"];
-+			enableDevModeGroupSpecifier.name = @"开发者模式";
-+			[enableDevModeGroupSpecifier setProperty:@"一些应用需要启用开发者模式才能启动。这需要重新启动才能生效。" forKey:@"footerText"];
++			enableDevModeGroupSpecifier.name = NSLocalizedString(@"Developer Mode", nil);
++			[enableDevModeGroupSpecifier setProperty:NSLocalizedString(@"Some apps require developer mode enabled to launch. This requires a reboot to take effect.", nil) forKey:@"footerText"];
  			[_specifiers addObject:enableDevModeGroupSpecifier];
  
 -			PSSpecifier* enableDevModeSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Enable Developer Mode"
-+			PSSpecifier* enableDevModeSpecifier = [PSSpecifier preferenceSpecifierNamed:@"启用开发者模式"
++			PSSpecifier* enableDevModeSpecifier = [PSSpecifier preferenceSpecifierNamed:NSLocalizedString(@"Enable Developer Mode", nil)
  										target:self
  										set:nil
  										get:nil
@@ -675,12 +725,12 @@ index 61fb1e7..4d31e0a 100644
  		PSSpecifier* utilitiesGroupSpecifier = [PSSpecifier emptyGroupSpecifier];
 -		utilitiesGroupSpecifier.name = @"Utilities";
 -		[utilitiesGroupSpecifier setProperty:@"If an app does not immediately appear after installation, respring here and it should appear afterwards." forKey:@"footerText"];
-+		utilitiesGroupSpecifier.name = @"工具";
-+		[utilitiesGroupSpecifier setProperty:@"如果应用程序安装后不立即出现，请在这里注销设备或重建图标缓存。" forKey:@"footerText"];
++		utilitiesGroupSpecifier.name = NSLocalizedString(@"Utilities", nil);
++		[utilitiesGroupSpecifier setProperty:NSLocalizedString(@"If an app does not immediately appear after installation, respring here and it should appear afterwards.", nil) forKey:@"footerText"];
  		[_specifiers addObject:utilitiesGroupSpecifier];
  
 -		PSSpecifier* respringButtonSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Respring"
-+		PSSpecifier* respringButtonSpecifier = [PSSpecifier preferenceSpecifierNamed:@"注销"
++		PSSpecifier* respringButtonSpecifier = [PSSpecifier preferenceSpecifierNamed:NSLocalizedString(@"Respring", nil)
  											target:self
  											set:nil
  											get:nil
@@ -689,7 +739,7 @@ index 61fb1e7..4d31e0a 100644
  		[_specifiers addObject:respringButtonSpecifier];
  
 -		PSSpecifier* rebuildIconCacheSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Rebuild Icon Cache"
-+		PSSpecifier* rebuildIconCacheSpecifier = [PSSpecifier preferenceSpecifierNamed:@"重建图标缓存"
++		PSSpecifier* rebuildIconCacheSpecifier = [PSSpecifier preferenceSpecifierNamed:NSLocalizedString(@"Rebuild Icon Cache", nil)
  											target:self
  											set:nil
  											get:nil
@@ -698,17 +748,17 @@ index 61fb1e7..4d31e0a 100644
  
  			PSSpecifier* signingGroupSpecifier = [PSSpecifier emptyGroupSpecifier];
 -			signingGroupSpecifier.name = @"Signing";
-+			signingGroupSpecifier.name = @"签名";
++			signingGroupSpecifier.name = NSLocalizedString(@"Signing", nil);
  
  			if(ldidInstalled)
  			{
 -				[signingGroupSpecifier setProperty:@"ldid is installed and allows TrollStore to install unsigned IPA files." forKey:@"footerText"];
-+				[signingGroupSpecifier setProperty:@"ldid 已安装，允许 TrollStore 安装未签名的 IPA 文件。" forKey:@"footerText"];
++				[signingGroupSpecifier setProperty:NSLocalizedString(@"ldid is installed and allows TrollStore to install unsigned IPA files.", nil) forKey:@"footerText"];
  			}
  			else
  			{
 -				[signingGroupSpecifier setProperty:@"In order for TrollStore to be able to install unsigned IPAs, ldid has to be installed using this button. It can't be directly included in TrollStore because of licensing issues." forKey:@"footerText"];
-+				[signingGroupSpecifier setProperty:@"为了 TrollStore 能够安装未签名的 IPA，必须使用此按钮安装 ldid。由于许可问题，它无法直接包含在 TrollStore 中。" forKey:@"footerText"];
++				[signingGroupSpecifier setProperty:NSLocalizedString(@"In order for TrollStore to be able to install unsigned IPAs, ldid has to be installed using this button. It can't be directly included in TrollStore because of licensing issues.", nil) forKey:@"footerText"];
  			}
  
  			[_specifiers addObject:signingGroupSpecifier];
@@ -716,7 +766,7 @@ index 61fb1e7..4d31e0a 100644
  			if(ldidInstalled)
  			{
 -				NSString* installedTitle = @"ldid: Installed";
-+				NSString* installedTitle = @"ldid: 已安装";
++				NSString* installedTitle = NSLocalizedString(@"ldid: Installed", nil);
  				if(ldidVersion)
  				{
  					installedTitle = [NSString stringWithFormat:@"%@ (%@)", installedTitle, ldidVersion];
@@ -725,7 +775,7 @@ index 61fb1e7..4d31e0a 100644
  				if(_newerLdidVersion && ![_newerLdidVersion isEqualToString:ldidVersion])
  				{
 -					NSString* updateTitle = [NSString stringWithFormat:@"Update to %@", _newerLdidVersion];
-+					NSString* updateTitle = [NSString stringWithFormat:@"更新到 %@", _newerLdidVersion];
++					NSString* updateTitle = [NSString stringWithFormat:NSLocalizedString(@"Update to %@", nil), _newerLdidVersion];
  					PSSpecifier* ldidUpdateSpecifier = [PSSpecifier preferenceSpecifierNamed:updateTitle
  												target:self
  												set:nil
@@ -734,7 +784,7 @@ index 61fb1e7..4d31e0a 100644
  			else
  			{
 -				PSSpecifier* installLdidSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Install ldid"
-+				PSSpecifier* installLdidSpecifier = [PSSpecifier preferenceSpecifierNamed:@"安装 ldid"
++				PSSpecifier* installLdidSpecifier = [PSSpecifier preferenceSpecifierNamed:NSLocalizedString(@"Install ldid", nil)
  												target:self
  												set:nil
  												get:nil
@@ -743,15 +793,15 @@ index 61fb1e7..4d31e0a 100644
  
  		PSSpecifier* persistenceGroupSpecifier = [PSSpecifier emptyGroupSpecifier];
 -		persistenceGroupSpecifier.name = @"Persistence";
-+		persistenceGroupSpecifier.name = @"持久性";
++		persistenceGroupSpecifier.name = NSLocalizedString(@"Persistence", nil);
  		[_specifiers addObject:persistenceGroupSpecifier];
  
  		if([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/TrollStorePersistenceHelper.app"])
  		{
 -			[persistenceGroupSpecifier setProperty:@"When iOS rebuilds the icon cache, all TrollStore apps including TrollStore itself will be reverted to \"User\" state and either disappear or no longer launch. If that happens, you can use the TrollHelper app on the home screen to refresh the app registrations, which will make them work again." forKey:@"footerText"];
 -			PSSpecifier* installedPersistenceHelperSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Helper Installed as Standalone App"
-+			[persistenceGroupSpecifier setProperty:@"当 iOS 重建图标缓存时，所有 TrollStore 应用，包括 TrollStore 本身，都将恢复到“用户”状态，要么消失，要么不再启动。如果发生这种情况，您可以使用主屏幕上的 TrollHelper 应用来刷新应用程序注册，这将使它们再次正常工作。" forKey:@"footerText"];
-+			PSSpecifier* installedPersistenceHelperSpecifier = [PSSpecifier preferenceSpecifierNamed:@"作为独立应用程序安装的助手"
++			[persistenceGroupSpecifier setProperty:NSLocalizedString(@"When iOS rebuilds the icon cache, all TrollStore apps including TrollStore itself will be reverted to \"User\" state and either disappear or no longer launch. If that happens, you can use the TrollHelper app on the home screen to refresh the app registrations, which will make them work again.", nil) forKey:@"footerText"];
++			PSSpecifier* installedPersistenceHelperSpecifier = [PSSpecifier preferenceSpecifierNamed:NSLocalizedString(@"Helper Installed as Standalone App", nil)
  											target:self
  											set:nil
  											get:nil
@@ -761,8 +811,8 @@ index 61fb1e7..4d31e0a 100644
  
 -				[persistenceGroupSpecifier setProperty:[NSString stringWithFormat:@"When iOS rebuilds the icon cache, all TrollStore apps including TrollStore itself will be reverted to \"User\" state and either disappear or no longer launch. If that happens, you can use the persistence helper installed into %@ to refresh the app registrations, which will make them work again.", appName] forKey:@"footerText"];
 -				PSSpecifier* installedPersistenceHelperSpecifier = [PSSpecifier preferenceSpecifierNamed:[NSString stringWithFormat:@"Helper Installed into %@", appName]
-+				[persistenceGroupSpecifier setProperty:[NSString stringWithFormat:@"当 iOS 重建图标缓存时，所有 TrollStore 应用，包括 TrollStore 本身，都将恢复到“用户”状态，要么消失，要么不再启动。如果发生这种情况，您可以使用安装到 %@ 中的持久性助手来刷新所有 TrollStore 相关应用的注册，使它们再次正常工作。", appName] forKey:@"footerText"];
-+				PSSpecifier* installedPersistenceHelperSpecifier = [PSSpecifier preferenceSpecifierNamed:[NSString stringWithFormat:@"持久性助手已安装到 %@", appName]
++				[persistenceGroupSpecifier setProperty:[NSString stringWithFormat:NSLocalizedString(@"When iOS rebuilds the icon cache, all TrollStore apps including TrollStore itself will be reverted to \"User\" state and either disappear or no longer launch. If that happens, you can use the persistence helper installed into %@ to refresh the app registrations, which will make them work again.", nil), appName] forKey:@"footerText"];
++				PSSpecifier* installedPersistenceHelperSpecifier = [PSSpecifier preferenceSpecifierNamed:[NSString stringWithFormat:NSLocalizedString(@"Helper Installed into %@", nil), appName]
  												target:self
  												set:nil
  												get:nil
@@ -771,7 +821,7 @@ index 61fb1e7..4d31e0a 100644
  				[_specifiers addObject:installedPersistenceHelperSpecifier];
  
 -				PSSpecifier* uninstallPersistenceHelperSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Uninstall Persistence Helper"
-+				PSSpecifier* uninstallPersistenceHelperSpecifier = [PSSpecifier preferenceSpecifierNamed:@"卸载持久性助手"
++				PSSpecifier* uninstallPersistenceHelperSpecifier = [PSSpecifier preferenceSpecifierNamed:NSLocalizedString(@"Uninstall Persistence Helper", nil)
  												target:self
  												set:nil
  												get:nil
@@ -780,10 +830,10 @@ index 61fb1e7..4d31e0a 100644
  			else
  			{
 -				[persistenceGroupSpecifier setProperty:@"When iOS rebuilds the icon cache, all TrollStore apps including TrollStore itself will be reverted to \"User\" state and either disappear or no longer launch. The only way to have persistence in a rootless environment is to replace a system application, here you can select a system app to replace with a persistence helper that can be used to refresh the registrations of all TrollStore related apps in case they disappear or no longer launch." forKey:@"footerText"];
-+				[persistenceGroupSpecifier setProperty:@"当 iOS 重建图标缓存时，所有 TrollStore 应用，包括 TrollStore 本身，都将恢复到“用户”状态，要么消失，要么不再启动。在无 root 环境中具有持久性的唯一方法是替换系统应用程序，您可以在这里选择要用持久性助手替换的系统应用程序，它可用于刷新所有 TrollStore 相关应用的注册，以防它们消失或不再启动。" forKey:@"footerText"];
++				[persistenceGroupSpecifier setProperty:NSLocalizedString(@"When iOS rebuilds the icon cache, all TrollStore apps including TrollStore itself will be reverted to \"User\" state and either disappear or no longer launch. The only way to have persistence in a rootless environment is to replace a system application, here you can select a system app to replace with a persistence helper that can be used to refresh the registrations of all TrollStore related apps in case they disappear or no longer launch.", nil) forKey:@"footerText"];
  
 -				_installPersistenceHelperSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Install Persistence Helper"
-+				_installPersistenceHelperSpecifier = [PSSpecifier preferenceSpecifierNamed:@"安装持久性助手"
++				_installPersistenceHelperSpecifier = [PSSpecifier preferenceSpecifierNamed:NSLocalizedString(@"Install Persistence Helper", nil)
  												target:self
  												set:nil
  												get:nil
@@ -793,13 +843,13 @@ index 61fb1e7..4d31e0a 100644
  		PSSpecifier* installationSettingsGroupSpecifier = [PSSpecifier emptyGroupSpecifier];
 -		installationSettingsGroupSpecifier.name = @"Security";
 -		[installationSettingsGroupSpecifier setProperty:@"The URL Scheme, when enabled, will allow apps and websites to trigger TrollStore installations through the apple-magnifier://install?url=<IPA_URL> URL scheme and enable JIT through the apple-magnifier://enable-jit?bundle-id=<BUNDLE_ID> URL scheme." forKey:@"footerText"];
-+		installationSettingsGroupSpecifier.name = @"安全";
-+		[installationSettingsGroupSpecifier setProperty:@"启用 URL 方案后，应用程序和网站将通过 apple-magnifier://install?url=<IPA_URL> URL 方案触发 TrollStore 安装，并通过 apple-magnifier://enable-jit?bundle-id=<BUNDLE_ID> URL 方案启用 JIT。" forKey:@"footerText"];
++		installationSettingsGroupSpecifier.name = NSLocalizedString(@"Security", nil);
++		[installationSettingsGroupSpecifier setProperty:NSLocalizedString(@"The URL Scheme, when enabled, will allow apps and websites to trigger TrollStore installations through the apple-magnifier://install?url=<IPA_URL> URL scheme and enable JIT through the apple-magnifier://enable-jit?bundle-id=<BUNDLE_ID> URL scheme.", nil) forKey:@"footerText"];
  
  		[_specifiers addObject:installationSettingsGroupSpecifier];
  
 -		PSSpecifier* URLSchemeToggle = [PSSpecifier preferenceSpecifierNamed:@"URL Scheme Enabled"
-+		PSSpecifier* URLSchemeToggle = [PSSpecifier preferenceSpecifierNamed:@"启用 URL 方案"
++		PSSpecifier* URLSchemeToggle = [PSSpecifier preferenceSpecifierNamed:NSLocalizedString(@"URL Scheme Enabled", nil)
  										target:self
  										set:@selector(setURLSchemeEnabled:forSpecifier:)
  										get:@selector(getURLSchemeEnabledForSpecifier:)
@@ -808,7 +858,7 @@ index 61fb1e7..4d31e0a 100644
  		[_specifiers addObject:URLSchemeToggle];
  
 -		PSSpecifier* installAlertConfigurationSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Show Install Confirmation Alert"
-+		PSSpecifier* installAlertConfigurationSpecifier = [PSSpecifier preferenceSpecifierNamed:@"显示安装确认对话框"
++		PSSpecifier* installAlertConfigurationSpecifier = [PSSpecifier preferenceSpecifierNamed:NSLocalizedString(@"Show Install Confirmation Alert", nil)
  										target:self
  										set:@selector(setPreferenceValue:specifier:)
  										get:@selector(readPreferenceValue:)
@@ -817,11 +867,11 @@ index 61fb1e7..4d31e0a 100644
  
  		PSSpecifier* otherGroupSpecifier = [PSSpecifier emptyGroupSpecifier];
 -		[otherGroupSpecifier setProperty:[NSString stringWithFormat:@"TrollStore %@\n\n© 2022-2024 Lars Fröder (opa334)\n\nTrollStore is NOT for piracy!\n\nCredits:\nGoogle TAG, @alfiecg_dev: CoreTrust bug\n@lunotech11, @SerenaKit, @tylinux, @TheRealClarity, @dhinakg, @khanhduytran0: Various contributions\n@ProcursusTeam: uicache, ldid\n@cstar_ow: uicache\n@saurik: ldid", [self getTrollStoreVersion]] forKey:@"footerText"];
-+		[otherGroupSpecifier setProperty:[NSString stringWithFormat:@"TrollStore %@\n\n© 2022-2024 Lars Fröder (opa334)\n\nTrollStore 拒绝盗版应用行为！\n\n鸣谢:\nGoogle TAG, @alfiecg_dev: CoreTrust bug\n@lunotech11, @SerenaKit, @tylinux, @TheRealClarity, @dhinakg, @khanhduytran0: Various contributions\n@ProcursusTeam: uicache, ldid\n@cstar_ow: uicache\n@saurik: ldid", [self getTrollStoreVersion]] forKey:@"footerText"];
++		[otherGroupSpecifier setProperty:[NSString stringWithFormat:NSLocalizedString(@"TrollStore %@\n\n© 2022-2024 Lars Fröder (opa334)\n\nTrollStore is NOT for piracy!\n\nCredits:\nGoogle TAG, @alfiecg_dev: CoreTrust bug\n@lunotech11, @SerenaKit, @tylinux, @TheRealClarity, @dhinakg, @khanhduytran0: Various contributions\n@ProcursusTeam: uicache, ldid\n@cstar_ow: uicache\n@saurik: ldid", nil), [self getTrollStoreVersion]] forKey:@"footerText"];
  		[_specifiers addObject:otherGroupSpecifier];
  
 -		PSSpecifier* advancedLinkSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Advanced"
-+		PSSpecifier* advancedLinkSpecifier = [PSSpecifier preferenceSpecifierNamed:@"高级"
++		PSSpecifier* advancedLinkSpecifier = [PSSpecifier preferenceSpecifierNamed:NSLocalizedString(@"Advanced", nil)
  										target:self
  										set:nil
  										get:nil
@@ -830,7 +880,7 @@ index 61fb1e7..4d31e0a 100644
  		[_specifiers addObject:advancedLinkSpecifier];
  
 -		PSSpecifier* donateSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Donate"
-+		PSSpecifier* donateSpecifier = [PSSpecifier preferenceSpecifierNamed:@"捐赠"
++		PSSpecifier* donateSpecifier = [PSSpecifier preferenceSpecifierNamed:NSLocalizedString(@"Donate", nil)
  										target:self
  										set:nil
  										get:nil
@@ -839,7 +889,7 @@ index 61fb1e7..4d31e0a 100644
  
  		// Uninstall TrollStore
 -		PSSpecifier* uninstallTrollStoreSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Uninstall TrollStore"
-+		PSSpecifier* uninstallTrollStoreSpecifier = [PSSpecifier preferenceSpecifierNamed:@"卸载 TrollStore"
++		PSSpecifier* uninstallTrollStoreSpecifier = [PSSpecifier preferenceSpecifierNamed:NSLocalizedString(@"Uninstall TrollStore", nil)
  										target:self
  										set:nil
  										get:nil
@@ -848,7 +898,7 @@ index 61fb1e7..4d31e0a 100644
  	}
  
 -	[(UINavigationItem *)self.navigationItem setTitle:@"Settings"];
-+	[(UINavigationItem *)self.navigationItem setTitle:@"设置"];
++	[(UINavigationItem *)self.navigationItem setTitle:NSLocalizedString(@"Settings", nil)];
  	return _specifiers;
  }
  
@@ -857,7 +907,7 @@ index 61fb1e7..4d31e0a 100644
  - (NSArray*)installationConfirmationNames
  {
 -	return @[@"Always (Recommended)", @"Only on Remote URL Installs", @"Never (Not Recommeded)"];
-+	return @[@"始终（推荐）", @"仅限远程URL安装", @"从不（不推荐）"];
++	return @[NSLocalizedString(@"Always (Recommended)", nil), NSLocalizedString(@"Only on Remote URL Installs", nil), NSLocalizedString(@"Never (Not Recommeded)", nil)];
  }
  
  - (void)respringButtonPressed
@@ -867,19 +917,19 @@ index 61fb1e7..4d31e0a 100644
  	if (ret == 0) {
 -		UIAlertController* rebootNotification = [UIAlertController alertControllerWithTitle:@"Reboot Required"
 -			message:@"After rebooting, select \"Turn On\" to enable developer mode."
-+		UIAlertController* rebootNotification = [UIAlertController alertControllerWithTitle:@"需要重新启动"
-+			message:@"重新启动后，请选择“打开”以启用开发者模式。"
++		UIAlertController* rebootNotification = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Reboot Required", nil)
++			message:NSLocalizedString(@"After rebooting, select \"Turn On\" to enable developer mode.", nil)
  			preferredStyle:UIAlertControllerStyleAlert
  		];
 -		UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleCancel handler:^(UIAlertAction* action)
-+		UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"关闭" style:UIAlertActionStyleCancel handler:^(UIAlertAction* action)
++		UIAlertAction* closeAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction* action)
  		{
  			[self reloadSpecifiers];
  		}];
  		[rebootNotification addAction:closeAction];
  
 -		UIAlertAction* rebootAction = [UIAlertAction actionWithTitle:@"Reboot Now" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
-+		UIAlertAction* rebootAction = [UIAlertAction actionWithTitle:@"立即重启" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
++		UIAlertAction* rebootAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Reboot Now", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
  		{
  			spawnRoot(rootHelperPath(), @[@"reboot"], nil, nil);
  		}];
@@ -889,48 +939,44 @@ index 61fb1e7..4d31e0a 100644
  	} else {
 -		UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Error %d", ret] message:@"Failed to enable developer mode." preferredStyle:UIAlertControllerStyleAlert];
 -		UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleDefault handler:nil];
-+		UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"错误 %d", ret] message:@"无法启用开发者模式。" preferredStyle:UIAlertControllerStyleAlert];
-+		UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"关闭" style:UIAlertActionStyleDefault handler:nil];
++		UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Error %d", nil), ret] message:NSLocalizedString(@"Failed to enable developer mode.", nil) preferredStyle:UIAlertControllerStyleAlert];
++		UIAlertAction* closeAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", nil) style:UIAlertActionStyleDefault handler:nil];
  		[errorAlert addAction:closeAction];
  
  		[TSPresentationDelegate presentViewController:errorAlert animated:YES completion:nil];
-@@ -448,7 +448,9 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+@@ -448,7 +448,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
  		}
  	}];
  
 -	UIAlertController* selectAppAlert = [UIAlertController alertControllerWithTitle:@"Select App" message:@"Select a system app to install the TrollStore Persistence Helper into. The normal function of the app will not be available, so it is recommended to pick something useless like the Tips app." preferredStyle:UIAlertControllerStyleActionSheet];
-+	UIAlertController* selectAppAlert = [UIAlertController alertControllerWithTitle:@"选择应用"
-+		message:@"选择要将 TrollStore 持久性助手安装到的系统应用。应用程序的正常功能将不可用，因此建议选择一些无用的应用，如提示应用。"
-+		preferredStyle:UIAlertControllerStyleActionSheet];
++	UIAlertController* selectAppAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select App", nil) message:NSLocalizedString(@"Select a system app to install the TrollStore Persistence Helper into. The normal function of the app will not be available, so it is recommended to pick something useless like the Tips app.", nil) preferredStyle:UIAlertControllerStyleActionSheet];
  	for(LSApplicationProxy* appProxy in appCandidates)
  	{
  		UIAlertAction* installAction = [UIAlertAction actionWithTitle:[appProxy localizedName] style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
-@@ -465,7 +467,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+@@ -465,7 +465,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
  	selectAppAlert.popoverPresentationController.sourceView = tableView;
  	selectAppAlert.popoverPresentationController.sourceRect = [tableView rectForRowAtIndexPath:indexPath];
  
 -	UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-+	UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
++	UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil];
  	[selectAppAlert addAction:cancelAction];
  
  	[TSPresentationDelegate presentViewController:selectAppAlert animated:YES completion:nil];
-@@ -483,14 +485,16 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+@@ -483,14 +483,14 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
  	NSString* newStateString = [newValue boolValue] ? @"enable" : @"disable";
  	spawnRoot(rootHelperPath(), @[@"url-scheme", newStateString], nil, nil);
  
 -	UIAlertController* rebuildNoticeAlert = [UIAlertController alertControllerWithTitle:@"URL Scheme Changed" message:@"In order to properly apply the change of the URL scheme setting, rebuilding the icon cache is needed." preferredStyle:UIAlertControllerStyleAlert];
 -	UIAlertAction* rebuildNowAction = [UIAlertAction actionWithTitle:@"Rebuild Now" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
-+	UIAlertController* rebuildNoticeAlert = [UIAlertController alertControllerWithTitle:@"URL方案已更改"
-+		message:@"为了正确应用URL方案设置的更改，需要重建图标缓存。"
-+		preferredStyle:UIAlertControllerStyleAlert];
-+	UIAlertAction* rebuildNowAction = [UIAlertAction actionWithTitle:@"立即重建" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
++	UIAlertController* rebuildNoticeAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"URL Scheme Changed", nil) message:NSLocalizedString(@"In order to properly apply the change of the URL scheme setting, rebuilding the icon cache is needed.", nil) preferredStyle:UIAlertControllerStyleAlert];
++	UIAlertAction* rebuildNowAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Rebuild Now", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
  	{
  		[self rebuildIconCachePressed];
  	}];
  	[rebuildNoticeAlert addAction:rebuildNowAction];
  
 -	UIAlertAction* rebuildLaterAction = [UIAlertAction actionWithTitle:@"Rebuild Later" style:UIAlertActionStyleCancel handler:nil];
-+	UIAlertAction* rebuildLaterAction = [UIAlertAction actionWithTitle:@"稍后重建" style:UIAlertActionStyleCancel handler:nil];
++	UIAlertAction* rebuildLaterAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Rebuild Later", nil) style:UIAlertActionStyleCancel handler:nil];
  	[rebuildNoticeAlert addAction:rebuildLaterAction];
  
  	[TSPresentationDelegate presentViewController:rebuildNoticeAlert animated:YES completion:nil];

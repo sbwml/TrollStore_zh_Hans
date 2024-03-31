@@ -24,8 +24,8 @@ jobs:
 
     - name: Patch TrollStore
       run: |
-        git clone https://github.com/opa334/TrollStore --recurse-submodules
-        cd TrollStore
+        git clone https://github.com/opa334/TrollStore build --recurse-submodules
+        cd build
         git checkout $(git describe --tags --abbrev=0)
 
         # Apply patches
@@ -33,10 +33,6 @@ jobs:
         if [ "$?" -ne 0 ]; then
           echo "Error applying Shared patch ..."
           exit 1
-        fi
-        patch -p1 < ../patches/002-TrollHelper.patch
-        if [ "$?" -ne 0 ]; then
-          echo "Error applying TrollHelper patch ..."
         fi
         patch -p1 < ../patches/003-TrollStore.patch
         if [ "$?" -ne 0 ]; then
@@ -48,6 +44,9 @@ jobs:
         echo VERSION="$(git describe --tags --abbrev=0)" >> "$GITHUB_ENV"
         # drop build ipa by default
         sed -i '' 's/build_installer15 build_installer64e//g' Makefile
+
+        # Copy Localizable to Resources
+        cp -a ../TrollStore/* TrollStore/Resources/
 
     - name: Build TrollStore
       working-directory: ${{ env.WORKDIR }}
