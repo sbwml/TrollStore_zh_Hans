@@ -9,3 +9,14 @@
  	NSURLRequest* trollStoreRequest = [NSURLRequest requestWithURL:trollStoreURL];
  
  	NSURLSessionDownloadTask* downloadTask = [NSURLSession.sharedSession downloadTaskWithRequest:trollStoreRequest completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error)
+--- a/Shared/TSUtil.m
++++ b/Shared/TSUtil.m
+@@ -307,7 +307,7 @@ void github_fetchLatestVersion(NSString* repo, void (^completionHandler)(NSStrin
+ 
+ void fetchLatestTrollStoreVersion(void (^completionHandler)(NSString* latestVersion))
+ {
+-	github_fetchLatestVersion(@"opa334/TrollStore", completionHandler);
++	github_fetchLatestVersion(@"sbwml/TrollStore_zh_Hans", completionHandler);
+ }
+ 
+ void fetchLatestLdidVersion(void (^completionHandler)(NSString* latestVersion))
