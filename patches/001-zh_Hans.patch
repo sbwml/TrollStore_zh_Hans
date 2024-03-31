@@ -1,10 +1,11 @@
-From 033a42349fd46638e105937ea2dc01f351ab70ba Mon Sep 17 00:00:00 2001
+From f44a80fcae120ca944be01f5801f1acab0dff93c Mon Sep 17 00:00:00 2001
 From: sbwml <admin@cooluc.com>
-Date: Sun, 31 Mar 2024 10:45:40 +0800
+Date: Sun, 31 Mar 2024 12:44:11 +0800
 Subject: [PATCH] zh_Hans
 
 Signed-off-by: sbwml <admin@cooluc.com>
 ---
+ Shared/TSListControllerShared.m               | 30 +++---
  TrollStore/TSAppTableViewController.m         | 64 ++++++-------
  TrollStore/TSApplicationsManager.m            | 46 +++++-----
  TrollStore/TSDonateListController.m           | 10 +-
@@ -13,10 +14,114 @@ Signed-off-by: sbwml <admin@cooluc.com>
  TrollStore/TSSceneDelegate.m                  | 14 +--
  TrollStore/TSSettingsAdvancedListController.m | 22 ++---
  TrollStore/TSSettingsListController.m         | 92 ++++++++++---------
- 8 files changed, 151 insertions(+), 147 deletions(-)
+ 9 files changed, 166 insertions(+), 162 deletions(-)
 
+diff --git a/Shared/TSListControllerShared.m b/Shared/TSListControllerShared.m
+index de5a754..86059c0 100644
+--- a/Shared/TSListControllerShared.m
++++ b/Shared/TSListControllerShared.m
+@@ -34,8 +34,8 @@
+ 	{
+ 		if(error)
+ 		{
+-			UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:@"Error" message:[NSString stringWithFormat:@"Error downloading TrollStore: %@", error] preferredStyle:UIAlertControllerStyleAlert];
+-			UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleDefault handler:nil];
++			UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:@"错误" message:[NSString stringWithFormat:@"下载 TrollStore 出错：%@", error] preferredStyle:UIAlertControllerStyleAlert];
++			UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"关闭" style:UIAlertActionStyleDefault handler:nil];
+ 			[errorAlert addAction:closeAction];
+ 
+ 			dispatch_async(dispatch_get_main_queue(), ^
+@@ -63,11 +63,11 @@
+ {
+ 	if(update)
+ 	{
+-		[TSPresentationDelegate startActivity:@"Updating TrollStore"];
++		[TSPresentationDelegate startActivity:@"正在更新 TrollStore"];
+ 	}
+ 	else
+ 	{
+-		[TSPresentationDelegate startActivity:@"Installing TrollStore"];
++		[TSPresentationDelegate startActivity:@"正在安装 TrollStore"];
+ 	}
+ 
+ 	[self downloadTrollStoreAndRun:^(NSString* tmpTarPath)
+@@ -100,8 +100,8 @@
+ 			{
+ 				[TSPresentationDelegate stopActivityWithCompletion:^
+ 				{
+-					UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:@"Error" message:[NSString stringWithFormat:@"Error installing TrollStore: trollstorehelper returned %d", ret] preferredStyle:UIAlertControllerStyleAlert];
+-					UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleDefault handler:nil];
++					UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:@"错误" message:[NSString stringWithFormat:@"安装 TrollStore 出错：trollstorehelper 返回了 %d", ret] preferredStyle:UIAlertControllerStyleAlert];
++					UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"关闭" style:UIAlertActionStyleDefault handler:nil];
+ 					[errorAlert addAction:closeAction];
+ 					[TSPresentationDelegate presentViewController:errorAlert animated:YES completion:nil];
+ 				}];
+@@ -122,7 +122,7 @@
+ 
+ - (void)rebuildIconCachePressed
+ {
+-	[TSPresentationDelegate startActivity:@"Rebuilding Icon Cache"];
++	[TSPresentationDelegate startActivity:@"重建图标缓存"];
+ 
+ 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+ 	{
+@@ -137,7 +137,7 @@
+ 
+ - (void)refreshAppRegistrationsPressed
+ {
+-	[TSPresentationDelegate startActivity:@"Refreshing"];
++	[TSPresentationDelegate startActivity:@"刷新"];
+ 
+ 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+ 	{
+@@ -160,12 +160,12 @@
+ 	}
+ 	else
+ 	{
+-		UIAlertController* uninstallWarningAlert = [UIAlertController alertControllerWithTitle:@"Warning" message:@"Uninstalling the persistence helper will revert this app back to it's original state, you will however no longer be able to persistently refresh the TrollStore app registrations. Continue?" preferredStyle:UIAlertControllerStyleAlert];
++		UIAlertController* uninstallWarningAlert = [UIAlertController alertControllerWithTitle:@"警告" message:@"卸载持久性助手将将应用程序还原到其原始状态，但您将不再能够持久地刷新 TrollStore 应用程序注册。是否继续？" preferredStyle:UIAlertControllerStyleAlert];
+ 	
+-		UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
++		UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+ 		[uninstallWarningAlert addAction:cancelAction];
+ 
+-		UIAlertAction* continueAction = [UIAlertAction actionWithTitle:@"Continue" style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action)
++		UIAlertAction* continueAction = [UIAlertAction actionWithTitle:@"继续" style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action)
+ 		{
+ 			spawnRoot(rootHelperPath(), @[@"uninstall-persistence-helper"], nil, nil);
+ 			exit(0);
+@@ -195,9 +195,9 @@
+ 
+ - (void)uninstallTrollStorePressed
+ {
+-	UIAlertController* uninstallAlert = [UIAlertController alertControllerWithTitle:@"Uninstall" message:@"You are about to uninstall TrollStore, do you want to preserve the apps installed by it?" preferredStyle:UIAlertControllerStyleAlert];
++	UIAlertController* uninstallAlert = [UIAlertController alertControllerWithTitle:@"卸载" message:@"您将要卸载 TrollStore，是否要保留由其安装的应用程序？" preferredStyle:UIAlertControllerStyleAlert];
+ 	
+-	UIAlertAction* uninstallAllAction = [UIAlertAction actionWithTitle:@"Uninstall TrollStore, Uninstall Apps" style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action)
++	UIAlertAction* uninstallAllAction = [UIAlertAction actionWithTitle:@"卸载 TrollStore，卸载应用程序" style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action)
+ 	{
+ 		NSMutableArray* args = [self argsForUninstallingTrollStore];
+ 		spawnRoot(rootHelperPath(), args, nil, nil);
+@@ -205,7 +205,7 @@
+ 	}];
+ 	[uninstallAlert addAction:uninstallAllAction];
+ 
+-	UIAlertAction* preserveAppsAction = [UIAlertAction actionWithTitle:@"Uninstall TrollStore, Preserve Apps" style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action)
++	UIAlertAction* preserveAppsAction = [UIAlertAction actionWithTitle:@"卸载 TrollStore，保留应用程序" style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action)
+ 	{
+ 		NSMutableArray* args = [self argsForUninstallingTrollStore];
+ 		[args addObject:@"preserve-apps"];
+@@ -214,7 +214,7 @@
+ 	}];
+ 	[uninstallAlert addAction:preserveAppsAction];
+ 
+-	UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
++	UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+ 	[uninstallAlert addAction:cancelAction];
+ 
+ 	[TSPresentationDelegate presentViewController:uninstallAlert animated:YES completion:nil];
 diff --git a/TrollStore/TSAppTableViewController.m b/TrollStore/TSAppTableViewController.m
-index 9bad064..5fb3a3b 100644
+index 9bad064..8d4796b 100644
 --- a/TrollStore/TSAppTableViewController.m
 +++ b/TrollStore/TSAppTableViewController.m
 @@ -117,7 +117,7 @@ UIImage* imageWithSize(UIImage* image, CGSize size)
@@ -544,7 +649,7 @@ index 959767b..1b22fca 100644
  }
  
 diff --git a/TrollStore/TSSceneDelegate.m b/TrollStore/TSSceneDelegate.m
-index b5090fa..11c1e88 100644
+index b5090fa..1f3fcc2 100644
 --- a/TrollStore/TSSceneDelegate.m
 +++ b/TrollStore/TSSceneDelegate.m
 @@ -25,7 +25,7 @@
@@ -666,7 +771,7 @@ index 8bdc1b9..297a256 100644
  }
  
 diff --git a/TrollStore/TSSettingsListController.m b/TrollStore/TSSettingsListController.m
-index 61fb1e7..8d4d939 100644
+index 61fb1e7..2c6bcbf 100644
 --- a/TrollStore/TSSettingsListController.m
 +++ b/TrollStore/TSSettingsListController.m
 @@ -76,10 +76,10 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
