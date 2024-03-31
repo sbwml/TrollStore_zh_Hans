@@ -1,5 +1,5 @@
 diff --git a/TrollStore/TSAppTableViewController.m b/TrollStore/TSAppTableViewController.m
-index 9bad064..8d4796b 100644
+index 9bad064..78078c5 100644
 --- a/TrollStore/TSAppTableViewController.m
 +++ b/TrollStore/TSAppTableViewController.m
 @@ -117,7 +117,7 @@ UIImage* imageWithSize(UIImage* image, CGSize size)
@@ -46,7 +46,7 @@ index 9bad064..8d4796b 100644
  		if([[appInfo registrationState] isEqualToString:@"User"])
  		{
 -			failMessage = @"This app was not able to launch because it has a \"User\" registration state, register it as \"System\" and try again.";
-+			failMessage = @"无法打开此应用，因为其注册状态为“用户”，请将其注册为“系统”后重试。";
++			failMessage = @"无法打开此应用，因为其注册状态为 \"User\"，请将其注册为 \"System\" 后重试。";
  		}
  
 -		NSString* failTitle = [NSString stringWithFormat:@"Failed to open %@", appId];
@@ -93,11 +93,11 @@ index 9bad064..8d4796b 100644
  	{
 -		NSString* title = [NSString stringWithFormat:@"Switching '%@' to \"User\" Registration", [appInfo displayName]];
 -		UIAlertController* confirmationAlert = [UIAlertController alertControllerWithTitle:title message:@"Switching this app to a \"User\" registration will make it unlaunchable after the next respring because the bugs exploited in TrollStore only affect apps registered as \"System\".\nThe purpose of this option is to make the app temporarily show up in settings, so you can adjust the settings and then switch it back to a \"System\" registration (TrollStore installed apps do not show up in settings otherwise). Additionally, the \"User\" registration state is also useful to temporarily fix iTunes file sharing, which also doesn't work for TrollStore installed apps otherwise.\nWhen you're done making the changes you need and want the app to become launchable again, you will need to switch it back to \"System\" state in TrollStore." preferredStyle:UIAlertControllerStyleAlert];
-+		NSString* title = [NSString stringWithFormat:@"将 '%@' 切换到“用户”注册", [appInfo displayName]];
-+		UIAlertController* confirmationAlert = [UIAlertController alertControllerWithTitle:title message:@"将此应用切换到“用户”注册状态后，下次重新启动后将无法启动。这是因为 TrollStore 中利用的漏洞只影响“系统”注册的应用。\n此选项的目的是使应用暂时显示在设置中，以便您可以调整设置，然后再将其切换回“系统”注册（TrollStore 安装的应用在设置中不显示）。此外，“用户”注册状态还可用于临时修复 iTunes 文件共享，否则无法为 TrollStore 安装的应用工作。\n在完成所需更改并希望应用再次启动时，您需要在 TrollStore 中将其切换回“系统”状态。" preferredStyle:UIAlertControllerStyleAlert];
++		NSString* title = [NSString stringWithFormat:@"将 '%@' 切换到 \"User\" 注册", [appInfo displayName]];
++		UIAlertController* confirmationAlert = [UIAlertController alertControllerWithTitle:title message:@"将此应用切换到 \"User\" 注册状态后，下次重新启动后将无法启动。这是因为 TrollStore 中利用的漏洞只影响 \"System\" 注册的应用。\n此选项的目的是使应用暂时显示在设置中，以便您可以调整设置，然后再将其切换回 \"System\" 注册（TrollStore 安装的应用在设置中不显示）。此外，\"User\" 注册状态还可用于临时修复 iTunes 文件共享，否则无法为 TrollStore 安装的应用工作。\n在完成所需更改并希望应用再次启动时，您需要在 TrollStore 中将其切换回 \"System\" 状态。" preferredStyle:UIAlertControllerStyleAlert];
  
 -		UIAlertAction* switchToUserAction = [UIAlertAction actionWithTitle:@"Switch to \"User\"" style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action)
-+		UIAlertAction* switchToUserAction = [UIAlertAction actionWithTitle:@"切换到“用户”" style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action)
++		UIAlertAction* switchToUserAction = [UIAlertAction actionWithTitle:@"切换到 \"User\"" style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action)
  		{
  			[[TSApplicationsManager sharedInstance] changeAppRegistration:[appInfo bundlePath] toState:newState];
  			[appInfo sync_loadBasicInfo];
@@ -115,10 +115,10 @@ index 9bad064..8d4796b 100644
  		[appInfo sync_loadBasicInfo];
  
 -		NSString* title = [NSString stringWithFormat:@"Switched '%@' to \"System\" Registration", [appInfo displayName]];
-+		NSString* title = [NSString stringWithFormat:@"将 '%@' 切换到“系统”注册", [appInfo displayName]];
++		NSString* title = [NSString stringWithFormat:@"将 '%@' 切换到 \"System\" 注册", [appInfo displayName]];
  
 -		UIAlertController* infoAlert = [UIAlertController alertControllerWithTitle:title message:@"The app has been switched to the \"System\" registration state and will become launchable again after a respring." preferredStyle:UIAlertControllerStyleAlert];
-+		UIAlertController* infoAlert = [UIAlertController alertControllerWithTitle:title message:@"应用已切换到“系统”注册状态，并将在重新启动后再次启动。" preferredStyle:UIAlertControllerStyleAlert];
++		UIAlertController* infoAlert = [UIAlertController alertControllerWithTitle:title message:@"应用已切换到 \"System\" 注册状态，并将在重新启动后再次启动。" preferredStyle:UIAlertControllerStyleAlert];
  
 -		UIAlertAction* respringAction = [UIAlertAction actionWithTitle:@"Respring" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
 +		UIAlertAction* respringAction = [UIAlertAction actionWithTitle:@"注销设备" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
@@ -181,18 +181,7 @@ index 9bad064..8d4796b 100644
  	{
  		[self showDetailsPressedForRowAtIndexPath:indexPath];
  		[self deselectRow];
-@@ -467,30 +467,30 @@ UIImage* imageWithSize(UIImage* image, CGSize size)
- 	UIAlertActionStyle switchActionStyle = 0;
- 	if([registrationState isEqualToString:@"System"])
- 	{
--		switchState = @"User";
-+		switchState = @"用户";
- 		switchActionStyle = UIAlertActionStyleDestructive;
- 	}
- 	else if([registrationState isEqualToString:@"User"])
- 	{
--		switchState = @"System";
-+		switchState = @"系统";
+@@ -476,21 +476,21 @@ UIImage* imageWithSize(UIImage* image, CGSize size)
  		switchActionStyle = UIAlertActionStyleDefault;
  	}
  
