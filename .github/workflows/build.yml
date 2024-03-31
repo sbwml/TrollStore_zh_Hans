@@ -50,7 +50,7 @@ jobs:
     - name: Create release
       uses: sbwml/release-action@main
       with:
-        name: TrollStore-${{ env.VERSION }}
+        name: ${{ env.VERSION }}
         allowUpdates: true
         tag: ${{ env.VERSION }}
         commit: main
