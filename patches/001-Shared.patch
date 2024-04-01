@@ -110,6 +110,19 @@ index de5a754..0b4e971 100644
  	[uninstallAlert addAction:cancelAction];
  
  	[TSPresentationDelegate presentViewController:uninstallAlert animated:YES completion:nil];
+diff --git a/Shared/TSPresentationDelegate.m b/Shared/TSPresentationDelegate.m
+index d45227b..a80ebe7 100644
+--- a/Shared/TSPresentationDelegate.m
++++ b/Shared/TSPresentationDelegate.m
+@@ -42,7 +42,7 @@ static UIAlertController* g_activityController;
+ 
+ 		if(cancelHandler)
+ 		{
+-			UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction* action)
++			UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction* action)
+ 			{
+ 				self.activityController = nil;
+ 				cancelHandler();
 diff --git a/Shared/TSUtil.m b/Shared/TSUtil.m
 index d4eb2c0..f4b378c 100644
 --- a/Shared/TSUtil.m

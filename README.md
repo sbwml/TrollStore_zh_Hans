@@ -5,7 +5,7 @@
 <h1 align="center">TrollStore 简体中文</h1>
 
 <p align="center">
-  <b>以 Patch 的形式为 <a href="https://github.com/opa334/TrollStore" target="_blank" >TrollStore</a> 更换简体中文，并通过 GitHub Action 构建目标产物。</b>
+  <b>Patch <a href="https://github.com/opa334/TrollStore" target="_blank" >TrollStore</a> 添加本地化语言支持，并通过 GitHub Action 构建目标产物。</b>
 </p>
 
 ### 使用说明
@@ -15,3 +15,7 @@
 ### 更新版本
 
 - 该仓库同步 [TrollStore](https://github.com/opa334/TrollStore) 官方版本发布，在新版本发布时，你会在 TrollStore 应用内收到中文版本更新推送。
+
+### 翻译有误？
+
+- i18n 来自 Google 翻译，如有翻译错误、意思不明确，请通过 [Issues](https://github.com/sbwml/TrollStore_zh_Hans/issues/3) 告知我！
