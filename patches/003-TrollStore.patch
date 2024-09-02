@@ -347,7 +347,7 @@ index 9bad064..938c030 100644
  		[self deselectRow];
  	}];
 diff --git a/TrollStore/TSApplicationsManager.m b/TrollStore/TSApplicationsManager.m
-index 8dba589..dd06957 100644
+index f873e37..bd4fbfc 100644
 --- a/TrollStore/TSApplicationsManager.m
 +++ b/TrollStore/TSApplicationsManager.m
 @@ -21,76 +21,76 @@ extern NSUserDefaults* trollStoreUserDefaults();
@@ -381,8 +381,8 @@ index 8dba589..dd06957 100644
 +        errorDescription = NSLocalizedString(@"Failed to create container for app bundle.", nil);
          break;
          case 171:
--        errorDescription = @"A non-TrollStore app with the same identifier is already installed. If you are absolutely sure it is not, you can force install it.";
-+        errorDescription = NSLocalizedString(@"A non-TrollStore app with the same identifier is already installed. If you are absolutely sure it is not, you can force install it.", nil);
+-        errorDescription = @"A non "APP_NAME@" or a "OTHER_APP_NAME@" app with the same identifier is already installed. If you are absolutely sure it is not, you can force install it.";
++        errorDescription = NSLocalizedString(@"A non "APP_NAME@" or a "OTHER_APP_NAME@" app with the same identifier is already installed. If you are absolutely sure it is not, you can force install it.", nil);
          break;
          case 172:
 -        errorDescription = @"The app does not contain an Info.plist file.";
@@ -656,7 +656,7 @@ index 959767b..ab86709 100644
  }
  
 diff --git a/TrollStore/TSSceneDelegate.m b/TrollStore/TSSceneDelegate.m
-index b5090fa..366cdc2 100644
+index e86b456..f249a7b 100644
 --- a/TrollStore/TSSceneDelegate.m
 +++ b/TrollStore/TSSceneDelegate.m
 @@ -40,10 +40,10 @@
@@ -696,10 +696,10 @@ index b5090fa..366cdc2 100644
  			[TSPresentationDelegate presentViewController:errorAlert animated:YES completion:nil];
  		}
 diff --git a/TrollStore/TSSettingsAdvancedListController.m b/TrollStore/TSSettingsAdvancedListController.m
-index 8bdc1b9..26a26af 100644
+index 5f77982..cf65fdb 100644
 --- a/TrollStore/TSSettingsAdvancedListController.m
 +++ b/TrollStore/TSSettingsAdvancedListController.m
-@@ -16,10 +16,10 @@ extern NSUserDefaults* trollStoreUserDefaults();
+@@ -17,10 +17,10 @@ extern NSUserDefaults* trollStoreUserDefaults();
  
  		PSSpecifier* installationMethodGroupSpecifier = [PSSpecifier emptyGroupSpecifier];
  		//installationMethodGroupSpecifier.name = @"Installation";
@@ -712,7 +712,7 @@ index 8bdc1b9..26a26af 100644
  											target:self
  											set:nil
  											get:nil
-@@ -30,7 +30,7 @@ extern NSUserDefaults* trollStoreUserDefaults();
+@@ -31,7 +31,7 @@ extern NSUserDefaults* trollStoreUserDefaults();
  		installationMethodSpecifier.identifier = @"installationMethodLabel";
  		[_specifiers addObject:installationMethodSpecifier];
  
@@ -721,8 +721,8 @@ index 8bdc1b9..26a26af 100644
  											target:self
  											set:@selector(setPreferenceValue:specifier:)
  											get:@selector(readPreferenceValue:)
-@@ -42,16 +42,16 @@ extern NSUserDefaults* trollStoreUserDefaults();
- 		[installationMethodSegmentSpecifier setProperty:@"com.opa334.TrollStore" forKey:@"defaults"];
+@@ -43,16 +43,16 @@ extern NSUserDefaults* trollStoreUserDefaults();
+ 		[installationMethodSegmentSpecifier setProperty:APP_ID forKey:@"defaults"];
  		[installationMethodSegmentSpecifier setProperty:@"installationMethod" forKey:@"key"];
  		installationMethodSegmentSpecifier.values = @[@0, @1];
 -		installationMethodSegmentSpecifier.titleDictionary = @{@0 : @"installd", @1 : @"Custom"};
@@ -741,7 +741,7 @@ index 8bdc1b9..26a26af 100644
  											target:self
  											set:nil
  											get:nil
-@@ -62,7 +62,7 @@ extern NSUserDefaults* trollStoreUserDefaults();
+@@ -63,7 +63,7 @@ extern NSUserDefaults* trollStoreUserDefaults();
  		uninstallationMethodSpecifier.identifier = @"uninstallationMethodLabel";
  		[_specifiers addObject:uninstallationMethodSpecifier];
  
@@ -750,8 +750,8 @@ index 8bdc1b9..26a26af 100644
  											target:self
  											set:@selector(setPreferenceValue:specifier:)
  											get:@selector(readPreferenceValue:)
-@@ -74,12 +74,12 @@ extern NSUserDefaults* trollStoreUserDefaults();
- 		[uninstallationMethodSegmentSpecifier setProperty:@"com.opa334.TrollStore" forKey:@"defaults"];
+@@ -75,12 +75,12 @@ extern NSUserDefaults* trollStoreUserDefaults();
+ 		[uninstallationMethodSegmentSpecifier setProperty:APP_ID forKey:@"defaults"];
  		[uninstallationMethodSegmentSpecifier setProperty:@"uninstallationMethod" forKey:@"key"];
  		uninstallationMethodSegmentSpecifier.values = @[@0, @1];
 -		uninstallationMethodSegmentSpecifier.titleDictionary = @{@0 : @"installd", @1 : @"Custom"};
@@ -766,10 +766,10 @@ index 8bdc1b9..26a26af 100644
  }
  
 diff --git a/TrollStore/TSSettingsListController.m b/TrollStore/TSSettingsListController.m
-index 61fb1e7..a4ac391 100644
+index 27c80ea..357624c 100644
 --- a/TrollStore/TSSettingsListController.m
 +++ b/TrollStore/TSSettingsListController.m
-@@ -76,10 +76,10 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+@@ -79,10 +79,10 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
  		if(_newerVersion)
  		{
  			PSSpecifier* updateTrollStoreGroupSpecifier = [PSSpecifier emptyGroupSpecifier];
@@ -782,7 +782,7 @@ index 61fb1e7..a4ac391 100644
  										target:self
  										set:nil
  										get:nil
-@@ -95,11 +95,11 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+@@ -98,11 +98,11 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
  		if(!_devModeEnabled)
  		{
  			PSSpecifier* enableDevModeGroupSpecifier = [PSSpecifier emptyGroupSpecifier];
@@ -797,14 +797,22 @@ index 61fb1e7..a4ac391 100644
  										target:self
  										set:nil
  										get:nil
-@@ -113,11 +113,11 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+@@ -122,18 +122,18 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+ 		NSString *utilitiesDescription = @"";
+ #ifdef TROLLSTORE_LITE
+ 		if (shouldRegisterAsUserByDefault()) {
+-			utilitiesDescription = @"Apps will be registered as User by default since AppSync Unified is installed.\n\n";
++			utilitiesDescription = NSLocalizedString(@"Apps will be registered as User by default since AppSync Unified is installed.\n\n", nil);
  		}
+ 		else {
+-			utilitiesDescription = @"Apps will be registered as System by default since AppSync Unified is not installed. When apps loose their System registration and stop working, press \"Refresh App Registrations\" here to fix them.\n\n";
++			utilitiesDescription = NSLocalizedString(@"Apps will be registered as System by default since AppSync Unified is not installed. When apps loose their System registration and stop working, press \"Refresh App Registrations\" here to fix them.\n\n", nil);
+ 		}
+ #endif
+-		utilitiesDescription = [utilitiesDescription stringByAppendingString:@"If an app does not immediately appear after installation, respring here and it should appear afterwards."];
++		utilitiesDescription = [utilitiesDescription stringByAppendingString:NSLocalizedString(@"If an app does not immediately appear after installation, respring here and it should appear afterwards.", nil)];
  
- 		PSSpecifier* utilitiesGroupSpecifier = [PSSpecifier emptyGroupSpecifier];
--		utilitiesGroupSpecifier.name = @"Utilities";
--		[utilitiesGroupSpecifier setProperty:@"If an app does not immediately appear after installation, respring here and it should appear afterwards." forKey:@"footerText"];
-+		utilitiesGroupSpecifier.name = NSLocalizedString(@"Utilities", nil);
-+		[utilitiesGroupSpecifier setProperty:NSLocalizedString(@"If an app does not immediately appear after installation, respring here and it should appear afterwards.", nil) forKey:@"footerText"];
+ 		[utilitiesGroupSpecifier setProperty:utilitiesDescription forKey:@"footerText"];
  		[_specifiers addObject:utilitiesGroupSpecifier];
  
 -		PSSpecifier* respringButtonSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Respring"
@@ -812,16 +820,25 @@ index 61fb1e7..a4ac391 100644
  											target:self
  											set:nil
  											get:nil
-@@ -130,7 +130,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+@@ -146,7 +146,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
  
  		[_specifiers addObject:respringButtonSpecifier];
+ 
+-		PSSpecifier* refreshAppRegistrationsSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Refresh App Registrations"
++		PSSpecifier* refreshAppRegistrationsSpecifier = [PSSpecifier preferenceSpecifierNamed:NSLocalizedString(@"Refresh App Registrations", nil)
+ 											target:self
+ 											set:nil
+ 											get:nil
+@@ -159,7 +159,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+ 
+ 		[_specifiers addObject:refreshAppRegistrationsSpecifier];
  
 -		PSSpecifier* rebuildIconCacheSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Rebuild Icon Cache"
 +		PSSpecifier* rebuildIconCacheSpecifier = [PSSpecifier preferenceSpecifierNamed:NSLocalizedString(@"Rebuild Icon Cache", nil)
  											target:self
  											set:nil
  											get:nil
-@@ -156,22 +156,22 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+@@ -202,22 +202,22 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
  			}
  
  			PSSpecifier* signingGroupSpecifier = [PSSpecifier emptyGroupSpecifier];
@@ -848,7 +865,7 @@ index 61fb1e7..a4ac391 100644
  				if(ldidVersion)
  				{
  					installedTitle = [NSString stringWithFormat:@"%@ (%@)", installedTitle, ldidVersion];
-@@ -190,7 +190,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+@@ -236,7 +236,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
  
  				if(_newerLdidVersion && ![_newerLdidVersion isEqualToString:ldidVersion])
  				{
@@ -857,7 +874,7 @@ index 61fb1e7..a4ac391 100644
  					PSSpecifier* ldidUpdateSpecifier = [PSSpecifier preferenceSpecifierNamed:updateTitle
  												target:self
  												set:nil
-@@ -206,7 +206,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+@@ -252,7 +252,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
  			}
  			else
  			{
@@ -866,7 +883,7 @@ index 61fb1e7..a4ac391 100644
  												target:self
  												set:nil
  												get:nil
-@@ -221,13 +221,13 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+@@ -267,13 +267,13 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
  		//}
  
  		PSSpecifier* persistenceGroupSpecifier = [PSSpecifier emptyGroupSpecifier];
@@ -883,7 +900,7 @@ index 61fb1e7..a4ac391 100644
  											target:self
  											set:nil
  											get:nil
-@@ -245,8 +245,8 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+@@ -291,8 +291,8 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
  			{
  				NSString* appName = [persistenceApp localizedName];
  
@@ -894,7 +911,7 @@ index 61fb1e7..a4ac391 100644
  												target:self
  												set:nil
  												get:nil
-@@ -257,7 +257,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+@@ -303,7 +303,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
  				installedPersistenceHelperSpecifier.identifier = @"persistenceHelperInstalled";
  				[_specifiers addObject:installedPersistenceHelperSpecifier];
  
@@ -903,7 +920,7 @@ index 61fb1e7..a4ac391 100644
  												target:self
  												set:nil
  												get:nil
-@@ -273,9 +273,9 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+@@ -319,9 +319,9 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
  			}
  			else
  			{
@@ -915,8 +932,8 @@ index 61fb1e7..a4ac391 100644
  												target:self
  												set:nil
  												get:nil
-@@ -290,12 +290,12 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
- 		}
+@@ -337,12 +337,12 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+ #endif
  
  		PSSpecifier* installationSettingsGroupSpecifier = [PSSpecifier emptyGroupSpecifier];
 -		installationSettingsGroupSpecifier.name = @"Security";
@@ -931,7 +948,7 @@ index 61fb1e7..a4ac391 100644
  										target:self
  										set:@selector(setURLSchemeEnabled:forSpecifier:)
  										get:@selector(getURLSchemeEnabledForSpecifier:)
-@@ -305,7 +305,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+@@ -352,7 +352,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
  
  		[_specifiers addObject:URLSchemeToggle];
  
@@ -940,12 +957,12 @@ index 61fb1e7..a4ac391 100644
  										target:self
  										set:@selector(setPreferenceValue:specifier:)
  										get:@selector(readPreferenceValue:)
-@@ -323,10 +323,10 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+@@ -370,10 +370,10 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
  		[_specifiers addObject:installAlertConfigurationSpecifier];
  
  		PSSpecifier* otherGroupSpecifier = [PSSpecifier emptyGroupSpecifier];
--		[otherGroupSpecifier setProperty:[NSString stringWithFormat:@"TrollStore %@\n\n© 2022-2024 Lars Fröder (opa334)\n\nTrollStore is NOT for piracy!\n\nCredits:\nGoogle TAG, @alfiecg_dev: CoreTrust bug\n@lunotech11, @SerenaKit, @tylinux, @TheRealClarity, @dhinakg, @khanhduytran0: Various contributions\n@ProcursusTeam: uicache, ldid\n@cstar_ow: uicache\n@saurik: ldid", [self getTrollStoreVersion]] forKey:@"footerText"];
-+		[otherGroupSpecifier setProperty:[NSString stringWithFormat:NSLocalizedString(@"TrollStore %@\n\n© 2022-2024 Lars Fröder (opa334)\n\nTrollStore is NOT for piracy!\n\nCredits:\nGoogle TAG, @alfiecg_dev: CoreTrust bug\n@lunotech11, @SerenaKit, @tylinux, @TheRealClarity, @dhinakg, @khanhduytran0: Various contributions\n@ProcursusTeam: uicache, ldid\n@cstar_ow: uicache\n@saurik: ldid", nil), [self getTrollStoreVersion]] forKey:@"footerText"];
+-		[otherGroupSpecifier setProperty:[NSString stringWithFormat:@"%@ %@\n\n© 2022-2024 Lars Fröder (opa334)\n\nTrollStore is NOT for piracy!\n\nCredits:\nGoogle TAG, @alfiecg_dev: CoreTrust bug\n@lunotech11, @SerenaKit, @tylinux, @TheRealClarity, @dhinakg, @khanhduytran0: Various contributions\n@ProcursusTeam: uicache, ldid\n@cstar_ow: uicache\n@saurik: ldid", APP_NAME, [self getTrollStoreVersion]] forKey:@"footerText"];
++		[otherGroupSpecifier setProperty:[NSString stringWithFormat:NSLocalizedString(@"%@ %@\n\n© 2022-2024 Lars Fröder (opa334)\n\nTrollStore is NOT for piracy!\n\nCredits:\nGoogle TAG, @alfiecg_dev: CoreTrust bug\n@lunotech11, @SerenaKit, @tylinux, @TheRealClarity, @dhinakg, @khanhduytran0: Various contributions\n@ProcursusTeam: uicache, ldid\n@cstar_ow: uicache\n@saurik: ldid", nil), APP_NAME, [self getTrollStoreVersion]] forKey:@"footerText"];
  		[_specifiers addObject:otherGroupSpecifier];
  
 -		PSSpecifier* advancedLinkSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Advanced"
@@ -953,7 +970,7 @@ index 61fb1e7..a4ac391 100644
  										target:self
  										set:nil
  										get:nil
-@@ -337,7 +337,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+@@ -384,7 +384,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
  		[advancedLinkSpecifier setProperty:@YES forKey:@"enabled"];
  		[_specifiers addObject:advancedLinkSpecifier];
  
@@ -962,16 +979,16 @@ index 61fb1e7..a4ac391 100644
  										target:self
  										set:nil
  										get:nil
-@@ -349,7 +349,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
- 		[_specifiers addObject:donateSpecifier];
+@@ -397,7 +397,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
  
+ #ifndef TROLLSTORE_LITE
  		// Uninstall TrollStore
 -		PSSpecifier* uninstallTrollStoreSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Uninstall TrollStore"
 +		PSSpecifier* uninstallTrollStoreSpecifier = [PSSpecifier preferenceSpecifierNamed:NSLocalizedString(@"Uninstall TrollStore", nil)
  										target:self
  										set:nil
  										get:nil
-@@ -375,7 +375,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+@@ -423,7 +423,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
  		[_specifiers addObject:doTheDashSpecifier];*/
  	}
  
@@ -980,7 +997,7 @@ index 61fb1e7..a4ac391 100644
  	return _specifiers;
  }
  
-@@ -386,7 +386,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+@@ -434,7 +434,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
  
  - (NSArray*)installationConfirmationNames
  {
@@ -989,7 +1006,7 @@ index 61fb1e7..a4ac391 100644
  }
  
  - (void)respringButtonPressed
-@@ -404,17 +404,17 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+@@ -452,17 +452,17 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
  	int ret = spawnRoot(rootHelperPath(), @[@"arm-dev-mode"], nil, nil);
  
  	if (ret == 0) {
@@ -1011,7 +1028,7 @@ index 61fb1e7..a4ac391 100644
  		{
  			spawnRoot(rootHelperPath(), @[@"reboot"], nil, nil);
  		}];
-@@ -422,8 +422,8 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+@@ -470,8 +470,8 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
  
  		[TSPresentationDelegate presentViewController:rebootNotification animated:YES completion:nil];
  	} else {
@@ -1022,7 +1039,7 @@ index 61fb1e7..a4ac391 100644
  		[errorAlert addAction:closeAction];
  
  		[TSPresentationDelegate presentViewController:errorAlert animated:YES completion:nil];
-@@ -448,7 +448,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+@@ -496,7 +496,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
  		}
  	}];
  
@@ -1031,7 +1048,7 @@ index 61fb1e7..a4ac391 100644
  	for(LSApplicationProxy* appProxy in appCandidates)
  	{
  		UIAlertAction* installAction = [UIAlertAction actionWithTitle:[appProxy localizedName] style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
-@@ -465,7 +465,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+@@ -513,7 +513,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
  	selectAppAlert.popoverPresentationController.sourceView = tableView;
  	selectAppAlert.popoverPresentationController.sourceRect = [tableView rectForRowAtIndexPath:indexPath];
  
@@ -1040,7 +1057,7 @@ index 61fb1e7..a4ac391 100644
  	[selectAppAlert addAction:cancelAction];
  
  	[TSPresentationDelegate presentViewController:selectAppAlert animated:YES completion:nil];
-@@ -483,14 +483,14 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+@@ -577,14 +577,14 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
  	NSString* newStateString = [newValue boolValue] ? @"enable" : @"disable";
  	spawnRoot(rootHelperPath(), @[@"url-scheme", newStateString], nil, nil);
  
