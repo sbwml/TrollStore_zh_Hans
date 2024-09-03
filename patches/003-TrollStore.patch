@@ -492,7 +492,7 @@ index 899bcbb..b71b5d5 100644
  }
  
 diff --git a/TrollStore/TSInstallationController.m b/TrollStore/TSInstallationController.m
-index 03c3e28..709da2f 100644
+index 03c3e28..99cd5e4 100644
 --- a/TrollStore/TSInstallationController.m
 +++ b/TrollStore/TSInstallationController.m
 @@ -13,7 +13,7 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
@@ -504,11 +504,13 @@ index 03c3e28..709da2f 100644
  		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
  		{
  			// Install IPA
-@@ -38,13 +38,13 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+@@ -37,14 +37,14 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
+ 						if(completionBlock) completionBlock(YES, nil);
  					} else if (ret == 171) {
  						// recoverable error
- 						UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Install Error %d", ret] message:[error localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
+-						UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Install Error %d", ret] message:[error localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
 -						UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
++						UIAlertController* errorAlert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Install Error %d", nil), ret] message:[error localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
 +						UIAlertAction* closeAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* action)
  						{
  							if(completionBlock) completionBlock(NO, error);
