@@ -139,7 +139,7 @@ index 2046269..199a460 100644
  		else
  		{
 diff --git a/TrollStore/TSAppTableViewController.m b/TrollStore/TSAppTableViewController.m
-index 9bad064..938c030 100644
+index 9bad064..cbbe492 100644
 --- a/TrollStore/TSAppTableViewController.m
 +++ b/TrollStore/TSAppTableViewController.m
 @@ -117,7 +117,7 @@ UIImage* imageWithSize(UIImage* image, CGSize size)
@@ -321,14 +321,33 @@ index 9bad064..938c030 100644
  	{
  		[self showDetailsPressedForRowAtIndexPath:indexPath];
  		[self deselectRow];
-@@ -476,21 +476,21 @@ UIImage* imageWithSize(UIImage* image, CGSize size)
+@@ -463,34 +463,37 @@ UIImage* imageWithSize(UIImage* image, CGSize size)
+ 	[appSelectAlert addAction:showDetailsAction];
+ 
+ 	NSString* switchState;
++	NSString* targetState;
+ 	NSString* registrationState = [appInfo registrationState];
+ 	UIAlertActionStyle switchActionStyle = 0;
+ 	if([registrationState isEqualToString:@"System"])
+ 	{
+-		switchState = @"User";
++		switchState = NSLocalizedString(@"USER_KEY", @"Context: User state in registration");
++		targetState = @"User";
+ 		switchActionStyle = UIAlertActionStyleDestructive;
+ 	}
+ 	else if([registrationState isEqualToString:@"User"])
+ 	{
+-		switchState = @"System";
++		switchState = NSLocalizedString(@"SYSTEM_KEY", @"Context: System state in registration");
++		targetState = @"System";
  		switchActionStyle = UIAlertActionStyleDefault;
  	}
  
 -	UIAlertAction* switchRegistrationAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"Switch to \"%@\" Registration", switchState] style:switchActionStyle handler:^(UIAlertAction* action)
 +	UIAlertAction* switchRegistrationAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Switch to \"%@\" Registration", nil), switchState] style:switchActionStyle handler:^(UIAlertAction* action)
  	{
- 		[self changeAppRegistrationForRowAtIndexPath:indexPath toState:switchState];
+-		[self changeAppRegistrationForRowAtIndexPath:indexPath toState:switchState];
++		[self changeAppRegistrationForRowAtIndexPath:indexPath toState:targetState];
  		[self deselectRow];
  	}];
  	[appSelectAlert addAction:switchRegistrationAction];
