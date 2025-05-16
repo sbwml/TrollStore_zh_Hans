@@ -331,14 +331,14 @@ index 9bad064..cbbe492 100644
  	if([registrationState isEqualToString:@"System"])
  	{
 -		switchState = @"User";
-+		switchState = NSLocalizedString(@"USER_KEY", @"Context: User state in registration");
++		switchState = NSLocalizedString(@"User", @"Context: User state in registration");
 +		targetState = @"User";
  		switchActionStyle = UIAlertActionStyleDestructive;
  	}
  	else if([registrationState isEqualToString:@"User"])
  	{
 -		switchState = @"System";
-+		switchState = NSLocalizedString(@"SYSTEM_KEY", @"Context: System state in registration");
++		switchState = NSLocalizedString(@"System", @"Context: System state in registration");
 +		targetState = @"System";
  		switchActionStyle = UIAlertActionStyleDefault;
  	}
