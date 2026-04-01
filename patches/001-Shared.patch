@@ -124,10 +124,10 @@ index d45227b..a80ebe7 100644
  				self.activityController = nil;
  				cancelHandler();
 diff --git a/Shared/TSUtil.m b/Shared/TSUtil.m
-index d4eb2c0..f4b378c 100644
+index 7ef755c..66ea30e 100644
 --- a/Shared/TSUtil.m
 +++ b/Shared/TSUtil.m
-@@ -307,7 +307,7 @@ void github_fetchLatestVersion(NSString* repo, void (^completionHandler)(NSStrin
+@@ -327,7 +327,7 @@ void github_fetchLatestVersion(NSString* repo, void (^completionHandler)(NSStrin
  
  void fetchLatestTrollStoreVersion(void (^completionHandler)(NSString* latestVersion))
  {

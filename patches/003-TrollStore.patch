@@ -139,7 +139,7 @@ index 2046269..199a460 100644
  		else
  		{
 diff --git a/TrollStore/TSAppTableViewController.m b/TrollStore/TSAppTableViewController.m
-index 9bad064..cbbe492 100644
+index 9bad064..79c2271 100644
 --- a/TrollStore/TSAppTableViewController.m
 +++ b/TrollStore/TSAppTableViewController.m
 @@ -117,7 +117,7 @@ UIImage* imageWithSize(UIImage* image, CGSize size)
@@ -787,7 +787,7 @@ index 5f77982..cf65fdb 100644
  }
  
 diff --git a/TrollStore/TSSettingsListController.m b/TrollStore/TSSettingsListController.m
-index 27c80ea..0a7fe50 100644
+index 3a04a42..3890ca2 100644
 --- a/TrollStore/TSSettingsListController.m
 +++ b/TrollStore/TSSettingsListController.m
 @@ -79,10 +79,10 @@ extern NSUserDefaults* trollStoreUserDefaults(void);
@@ -988,8 +988,8 @@ index 27c80ea..0a7fe50 100644
  		[_specifiers addObject:installAlertConfigurationSpecifier];
  
  		PSSpecifier* otherGroupSpecifier = [PSSpecifier emptyGroupSpecifier];
--		[otherGroupSpecifier setProperty:[NSString stringWithFormat:@"%@ %@\n\n© 2022-2024 Lars Fröder (opa334)\n\nTrollStore is NOT for piracy!\n\nCredits:\nGoogle TAG, @alfiecg_dev: CoreTrust bug\n@lunotech11, @SerenaKit, @tylinux, @TheRealClarity, @dhinakg, @khanhduytran0: Various contributions\n@ProcursusTeam: uicache, ldid\n@cstar_ow: uicache\n@saurik: ldid", APP_NAME, [self getTrollStoreVersion]] forKey:@"footerText"];
-+		[otherGroupSpecifier setProperty:[NSString stringWithFormat:NSLocalizedString(@"%@ %@\n\n© 2022-2024 Lars Fröder (opa334)\n\nTrollStore is NOT for piracy!\n\nCredits:\nGoogle TAG, @alfiecg_dev: CoreTrust bug\n@lunotech11, @SerenaKit, @tylinux, @TheRealClarity, @dhinakg, @khanhduytran0: Various contributions\n@ProcursusTeam: uicache, ldid\n@cstar_ow: uicache\n@saurik: ldid", nil), APP_NAME, [self getTrollStoreVersion]] forKey:@"footerText"];
+-		[otherGroupSpecifier setProperty:[NSString stringWithFormat:@"%@ %@\n\n© 2022-2026 Lars Fröder (opa334)\n\nTrollStore is NOT for piracy!\n\nCredits:\nGoogle TAG, @alfiecg_dev: CoreTrust bug\n@lunotech11, @SerenaKit, @tylinux, @TheRealClarity, @dhinakg, @khanhduytran0: Various contributions\n@ProcursusTeam: uicache, ldid\n@cstar_ow: uicache\n@saurik: ldid", APP_NAME, [self getTrollStoreVersion]] forKey:@"footerText"];
++		[otherGroupSpecifier setProperty:[NSString stringWithFormat:NSLocalizedString(@"%@ %@\n\n© 2022-2026 Lars Fröder (opa334)\n\nTrollStore is NOT for piracy!\n\nCredits:\nGoogle TAG, @alfiecg_dev: CoreTrust bug\n@lunotech11, @SerenaKit, @tylinux, @TheRealClarity, @dhinakg, @khanhduytran0: Various contributions\n@ProcursusTeam: uicache, ldid\n@cstar_ow: uicache\n@saurik: ldid", nil), APP_NAME, [self getTrollStoreVersion]] forKey:@"footerText"];
  		[_specifiers addObject:otherGroupSpecifier];
  
 -		PSSpecifier* advancedLinkSpecifier = [PSSpecifier preferenceSpecifierNamed:@"Advanced"
